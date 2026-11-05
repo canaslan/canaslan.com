@@ -95,7 +95,7 @@ The current production build passes with eight pages (including Colophon), `/wor
 
 Live production and the named Preview each passed 40 HTTP checks covering every built page and asset plus an unknown-route 404. The CV PDF matches the source bytes on both hosts. Preview responses include `X-Robots-Tag: noindex`; production custom-domain responses do not.
 
-The local resolver still cached the previous empty DNS answer during verification. Production was checked with curl `--resolve` using `104.21.34.133`, returned by the authoritative Cloudflare nameserver, with normal TLS certificate verification enabled. Normal resolver propagation must be rechecked. The named Preview resolved normally and passed HTTPS checks.
+The local resolver still cached the previous empty DNS answer during verification. Production was checked with curl `--resolve` using `104.21.34.133`, returned by the authoritative Cloudflare nameserver, with normal TLS certificate verification enabled. Normal resolver propagation must be rechecked. The named Preview resolved normally and passed HTTPS checks. Public recursive resolvers `1.1.1.1` and `8.8.8.8` also return the correct production addresses, and the production Cloudflare alias now passes HTTPS.
 
 Wrangler is authorized as `hello@canaslan.com` in account `6472e6c2b1616c065c24ac87e4581486`. GitHub is authorized as `canaslan` using the official GitHub CLI. Cloudflare MCP has identity/account access, but lacks Workers and DNS scopes. The Workers Builds API also denied the CLI authorization (HTTP 403), so Git-connected builds still need dashboard authorization/configuration.
 
