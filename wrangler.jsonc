@@ -14,5 +14,13 @@
     "traces": {
       "enabled": true
     }
-  }
+  },
+  "previews": {},
+  "account_id": "6472e6c2b1616c065c24ac87e4581486",
+  "routes": [
+    {
+      "pattern": "canaslan.com",
+      "custom_domain": true
+    }
+  ]
 }
