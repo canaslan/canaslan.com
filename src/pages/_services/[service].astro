@@ -1,0 +1,48 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import InfoTable from '../../components/InfoTable.astro';
+import Link from '../../components/Link.astro';
+import ServiceAction from '../../components/ServiceAction.astro';
+import { services, detailAudience, detailOutcome, sessions } from '../../data/services';
+import '../../styles/services.css';
+export function getStaticPaths() {
+  return services.map(service => ({ params: { service: service.slug }, props: { service } }));
+}
+const { service } = Astro.props;
+const title = service.slug === 'second-opinion' ? 'Second opinion' : service.title;
+---
+<Layout title={`${title} — Can Aslan`} description={service.tagline} viewportGrid>
+  <article class="services-page service-detail" id="top">
+    <Breadcrumb items={[{ label: 'Can Aslan', href: '/' }, { label: 'Work', href: '/projects' }, { label: 'Services', href: '/services' }, { label: title, current: true }]} />
+    <h1>{title}</h1>
+    <section class="service-copy" aria-labelledby="audience-heading">
+      <h2 id="audience-heading">Who it is for</h2>
+      <p>{detailAudience}</p>
+    </section>
+    <section class="service-copy" aria-labelledby="outcome-heading">
+      <h2 id="outcome-heading">What you get</h2>
+      <p>{detailOutcome}</p>
+    </section>
+    {sessions.map(session => <section class="service-session" aria-labelledby={`session-${session.minutes}`}>
+      <h2 id={`session-${session.minutes}`}>{session.title}</h2>
+      <InfoTable heading={session.title} label={session.title} columns={['Title', 'Description']} rows={session.rows} />
+      <div class="service-booking">
+        <ServiceAction href={`mailto:hello@canaslan.com?subject=${encodeURIComponent(`${service.title} — ${session.minutes} min booking request`)}`} icon="calendar" label={`Request a ${session.minutes} minute ${service.title} call by email`}>Book {session.minutes} min</ServiceAction>
+      </div>
+    </section>)}
+    <footer class="service-back"><Link href="#top" icon="up">Back to top</Link></footer>
+  </article>
+</Layout>
+<style>
+  .service-detail { max-width: 45rem; }
+  /* Figma detail heading is 32px / 40px, distinct from the display titles. */
+  h1 { margin: var(--spacing-4) 0; font-size: var(--size-service-heading); line-height: 1.25; letter-spacing: var(--letter-spacing-display); }
+  h2 { margin: 0 0 var(--spacing-3); font-size: var(--size-h2); line-height: calc(7 / 6); letter-spacing: var(--letter-spacing-heading); }
+  p { margin: 0; line-height: var(--line-height-mono-regular); }
+  .service-copy { padding-bottom: var(--spacing-4); margin-bottom: var(--spacing-4); border-bottom: 1px solid var(--border-default); }
+  .service-session + .service-session { margin-top: var(--spacing-4); }
+  .service-booking { display: flex; justify-content: flex-end; margin-top: var(--spacing-3); }
+  .service-back { display: flex; align-items: center; gap: var(--spacing-3); margin-top: var(--spacing-5); }
+  .service-back::before { content: ''; flex: 1; border-top: 1px solid var(--border-default); }
+</style>

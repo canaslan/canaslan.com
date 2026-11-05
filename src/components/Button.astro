@@ -1,0 +1,118 @@
+---
+type ButtonIcon = 'calendar-add' | 'arrow-forward' | 'download' | 'copy';
+
+interface Props {
+  href?: string;
+  icon?: ButtonIcon;
+  leadingIcon?: ButtonIcon;
+  endIcon?: ButtonIcon;
+  size?: 'S' | 'M' | 'L';
+  variant?: 'standard' | 'utility';
+  disabled?: boolean;
+  trailingIcon?: boolean;
+  class?: string;
+  [key: string]: unknown;
+}
+
+const { href, icon, leadingIcon, endIcon, trailingIcon = false, size = 'M', variant = 'standard', disabled = false, class: className, ...attributes } = Astro.props;
+const startIcon = leadingIcon ?? (trailingIcon ? undefined : icon);
+const finishIcon = endIcon ?? (trailingIcon ? icon : undefined);
+const Element = href ? 'a' : 'button';
+---
+
+<Element
+  href={disabled ? undefined : href}
+  disabled={href ? undefined : disabled}
+  role={href && disabled ? 'link' : undefined}
+  aria-disabled={disabled || undefined}
+  tabindex={href && disabled ? -1 : undefined}
+  type={href ? undefined : 'button'}
+  class:list={['standard-button', `standard-button--${variant}`, `standard-button--${size}`, className]}
+  {...attributes}
+>
+  {startIcon && <span class="standard-button__icon" style={`--button-icon: url('/icons/${startIcon}.svg')`} aria-hidden="true" />}
+  <span class="standard-button__label"><slot /></span>
+  {finishIcon && <span class="standard-button__icon" style={`--button-icon: url('/icons/${finishIcon}.svg')`} aria-hidden="true" />}
+</Element>
+
+<style>
+  .standard-button {
+    --button-resting: var(--button-standard-background-resting);
+    --button-hover: var(--button-standard-background-hover);
+    --button-down: var(--button-standard-background-pressed);
+    --button-border: var(--button-standard-border-resting);
+    --button-border-hover: var(--button-standard-border-hover);
+    --button-border-down: var(--button-standard-border-pressed);
+    --button-ink: var(--button-standard-foreground);
+    --button-glyph-size: var(--icon-l);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-2);
+    width: fit-content;
+    max-width: 100%;
+    min-height: calc(var(--spacing-4) + var(--spacing-3));
+    margin: 0;
+    /* Keep Figma's 40px height with CSS borders included in the box. */
+    padding: calc(var(--spacing-2) - 1px) var(--spacing-2);
+    border: 1px solid var(--button-border);
+    border-radius: var(--radius-medium);
+    background: var(--button-resting);
+    color: var(--button-ink);
+    font: var(--font-weight-medium) var(--size-mono-regular)/var(--line-height-mono-regular) var(--font-family-mono);
+    letter-spacing: var(--letter-spacing-mono-regular);
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .standard-button[hidden] { display: none; }
+  .standard-button__label { min-width: 0; overflow-wrap: anywhere; }
+  .standard-button__icon {
+    flex: 0 0 var(--button-glyph-size);
+    width: var(--button-glyph-size);
+    height: var(--button-glyph-size);
+    background: currentColor;
+    mask: var(--button-icon) center / contain no-repeat;
+  }
+  .standard-button--utility {
+    --button-resting: var(--button-utility-background-resting);
+    --button-hover: var(--button-utility-background-hover);
+    --button-down: var(--button-utility-background-pressed);
+    --button-border: var(--button-utility-border);
+    --button-border-hover: var(--button-utility-border);
+    --button-border-down: var(--button-utility-border);
+    --button-ink: var(--text-primary);
+  }
+  .standard-button--S {
+    --button-glyph-size: var(--icon-xs);
+    min-height: var(--spacing-5);
+    padding-block: calc(var(--spacing-1) - 1px);
+    font-size: var(--size-mono-s);
+    line-height: 1.5;
+    letter-spacing: var(--letter-spacing-mono-small);
+  }
+  .standard-button--L {
+    min-height: var(--spacing-6);
+    padding-inline: var(--spacing-3);
+  }
+  .standard-button:hover:not(:disabled):not([aria-disabled="true"]) {
+    border-color: var(--button-border-hover);
+    background: var(--button-hover);
+  }
+  .standard-button:focus-visible {
+    outline: 2px solid var(--button-focus);
+    outline-offset: 2px;
+  }
+  .standard-button:active:not(:disabled):not([aria-disabled="true"]) {
+    border-color: var(--button-border-down);
+    background: var(--button-down);
+  }
+  .standard-button:disabled,
+  .standard-button[aria-disabled="true"] {
+    border-color: var(--button-standard-border-disabled);
+    background: var(--button-standard-background-disabled);
+    color: var(--button-standard-foreground-disabled);
+    cursor: not-allowed;
+  }
+</style>

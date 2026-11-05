@@ -1,0 +1,25 @@
+# dependencies
+node_modules/
+
+# build output
+dist/
+
+# generated types
+.astro/
+
+# env
+.env
+.env.production
+
+# macOS
+.DS_Store
+
+# wrangler files
+.wrangler
+.dev.vars*
+
+# Cloudflare generated output and local credentials
+.cloudflare/
+.env.*
+!.dev.vars.example
+!.env.example

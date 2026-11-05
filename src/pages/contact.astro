@@ -1,0 +1,93 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import InfoTable from '../components/InfoTable.astro';
+
+const contactLinks = [
+  {
+    label: 'Book a call',
+    value: 'Book a call',
+    href: 'https://cal.com/canaslan/15min',
+    newTab: true,
+  },
+  {
+    label: 'Send email',
+    value: 'Send email',
+    href: 'mailto:hello@canaslan.com',
+    newTab: true,
+  },
+  {
+    label: 'Connect on LinkedIn',
+    value: 'Connect on LinkedIn',
+    href: 'https://linkedin.com/in/canaslan',
+    newTab: true,
+  },
+];
+---
+
+<Layout title="Contact — Can Aslan" description="Contact Can Aslan." viewportGrid>
+  <div class="contact-page editorial-page">
+    <Breadcrumb
+      items={[
+        { label: 'Can Aslan', href: '/' },
+        { label: 'Contact', current: true },
+      ]}
+    />
+
+    <section class="contact-intro" aria-labelledby="contact-heading">
+      <header class="contact-intro__header">
+      <h1 id="contact-heading" class="contact-intro__title">Let’s meet</h1>
+      <p class="contact-intro__copy">
+        I’m always interested in discussing product design, futures, ambitious product ideas and
+        potential collaborations.
+      </p>
+      </header>
+      <InfoTable heading="/CONNECT" rows={contactLinks} label="Connect" variant="links" />
+    </section>
+  </div>
+</Layout>
+
+<style>
+  .contact-intro {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-4);
+    margin-top: var(--page-heading-gap);
+  }
+  .contact-intro__header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-3);
+    width: 100%;
+  }
+  .contact-intro__title {
+    margin: 0;
+    color: var(--text-primary);
+    font-family: var(--font-family-sans);
+    font-size: var(--size-page-headline);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-display);
+    font-optical-sizing: none;
+    letter-spacing: var(--letter-spacing-page-headline);
+  }
+  .contact-intro__copy {
+    margin: 0;
+    color: var(--text-primary);
+    font-size: var(--size-body-m);
+    line-height: 1.5; /* Figma Body/L: 16px / 24px. */
+    letter-spacing: var(--letter-spacing-body);
+  }
+  .contact-intro :global(.info-table) { max-width: none; }
+  /* Match the 40px Figma rows without doubling cell and link padding. */
+  .contact-intro :global(.info-table__value .link) { padding: 0; text-decoration-line: underline; }
+  @media (min-width: 1440px) and (max-width: 1767px) {
+    .contact-intro__header { gap: var(--spacing-4); }
+    .contact-intro { gap: calc(var(--spacing-3) + var(--spacing-1)); }
+  }
+  @media (min-width: 1768px) {
+    /* Updated Figma XL/XXL: six columns of the centered 1440px frame. */
+    .contact-page { --editorial-width: 45rem; }
+    .contact-intro__copy { max-width: 37.5rem; }
+  }
+</style>

@@ -1,0 +1,253 @@
+---
+import '../styles/breakpoints.css';
+import '../styles/tokens.css';
+import '../styles/layout.css';
+import '../styles/links.css';
+import Sidebar from '../components/Sidebar.astro';
+import MobileNav from '../components/MobileNav.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  centered?: boolean;
+  wide?: boolean;
+  flush?: boolean;
+  viewportGrid?: boolean;
+}
+
+const {
+  title,
+  description = 'Personal website of Can Aslan.',
+  centered = false,
+  wide = false,
+  flush = false,
+  viewportGrid = false,
+} = Astro.props;
+const pathname = Astro.url.pathname;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>{title}</title>
+    <script is:inline>
+      (function () {
+  var stored;
+  try {
+    stored = localStorage.getItem('theme');
+  } catch {
+    // System preference remains available when browser storage is blocked.
+  }
+  var theme =
+    stored === 'light' || stored === 'dark'
+      ? stored
+      : window.matchMedia('(prefers-color-scheme: dark)').matches
+        ? 'dark'
+        : 'light';
+  document.documentElement.dataset.theme = theme;
+  document.documentElement.style.colorScheme = theme;
+})();
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <div class:list={['app-shell', { 'app-shell--home': centered, 'app-shell--viewport-grid': viewportGrid }]}>
+      <aside class="sidebar" aria-label="Site navigation">
+        <Sidebar pathname={pathname} />
+      </aside>
+
+      <div class:list={['content-area', { 'content-area--flush': flush }]}>
+        <main id="main-content" tabindex="-1" class:list={['content-main', { 'content-main--centered': centered, 'content-main--wide': wide }]}>
+          <slot />
+        </main>
+      </div>
+    </div>
+
+    <MobileNav pathname={pathname} />
+
+    <script src="../scripts/nav.ts"></script>
+  </body>
+</html>
+
+<style is:global>
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    font-family: var(--font-family-sans);
+    font-size: 100%;
+    font-weight: var(--font-weight-regular);
+    line-height: var(--line-height-body);
+    letter-spacing: var(--letter-spacing-body);
+    font-optical-sizing: auto;
+    background: var(--surface-default);
+    color: var(--text-primary);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background-color: var(--orange-200);
+    color: var(--text-on-accent);
+    text-shadow: none;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+  }
+
+  .skip-link {
+    position: fixed;
+    top: var(--spacing-3);
+    left: var(--spacing-3);
+    z-index: 130;
+    padding: var(--spacing-2);
+    background: var(--surface-default);
+    color: var(--text-primary);
+    transform: translateY(calc(-100% - var(--spacing-4)));
+  }
+
+  .skip-link:focus {
+    transform: none;
+  }
+
+  a {
+    color: var(--link-default);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+  }
+
+  a:hover {
+    text-decoration-thickness: 2px;
+  }
+
+  h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
+    margin-top: var(--type-space-heading-before);
+    margin-bottom: var(--type-space-paragraph);
+    font-family: var(--font-family-sans);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-heading);
+    letter-spacing: var(--letter-spacing-heading);
+    color: var(--text-primary);
+  }
+
+  h1, .h1 { font-size: var(--text-size-700); }
+  h2, .h2 { font-size: var(--text-size-600); }
+  h3, .h3 { font-size: var(--text-size-500); }
+  h4, .h4 { font-size: var(--text-size-400); }
+  h5, .h5 { font-size: var(--text-size-300); }
+  h6, .h6 { font-size: var(--text-size-200); }
+  small { font-size: var(--text-size-90); }
+
+  p { margin-block: var(--type-space-paragraph); }
+
+  .text-size-80 { font-size: var(--text-size-80); }
+  .text-size-90 { font-size: var(--text-size-90); }
+  .text-size-100 { font-size: var(--text-size-100); }
+  .text-size-200 { font-size: var(--text-size-200); }
+  .text-size-300 { font-size: var(--text-size-300); }
+  .text-size-400 { font-size: var(--text-size-400); }
+  .text-size-500 { font-size: var(--text-size-500); }
+  .text-size-600 { font-size: var(--text-size-600); }
+  .text-size-700 { font-size: var(--text-size-700); }
+
+  .headline {
+    font-size: clamp(var(--size-h1), 8vw, var(--size-headline));
+    line-height: var(--line-height-tight);
+    letter-spacing: var(--letter-spacing-headline);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .card-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: var(--spacing-3);
+  }
+
+  .card {
+    background: var(--surface-subtle);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--spacing-3);
+    padding: var(--spacing-4);
+  }
+
+  .card h3 {
+    margin: 0 0 var(--spacing-1);
+    font-size: var(--size-body-m);
+    font-weight: var(--font-weight-medium);
+  }
+
+  .card p {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: var(--size-body-m);
+  }
+
+  .card a.title-link {
+    color: var(--text-primary);
+    text-decoration: none;
+  }
+
+  .card a.title-link:hover {
+    color: var(--text-accent);
+  }
+
+  .meta {
+    font-family: var(--font-family-mono);
+    font-size: var(--size-mono-s);
+    line-height: var(--line-height-normal);
+    letter-spacing: var(--letter-spacing-mono-small);
+    color: var(--text-secondary);
+    margin-top: var(--spacing-2);
+  }
+
+  .contact-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-2) var(--spacing-4);
+    margin-top: var(--spacing-4);
+  }
+
+  .button {
+    display: inline-block;
+    padding: var(--spacing-2) var(--spacing-3);
+    border-radius: var(--spacing-2);
+    background: var(--button-active);
+    color: var(--text-on-accent);
+    text-decoration: none;
+    font-weight: var(--font-weight-medium);
+    font-size: var(--size-body-m);
+  }
+
+  .button:hover {
+    background: var(--button-hovered);
+    text-decoration: none;
+  }
+
+  .button:active {
+    background: var(--button-pressed);
+  }
+
+  a:focus-visible,
+  .button:focus-visible,
+  button:focus-visible {
+    outline: 2px solid var(--border-focus);
+    outline-offset: 2px;
+  }
+</style>

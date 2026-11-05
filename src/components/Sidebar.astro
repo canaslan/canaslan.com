@@ -1,0 +1,12 @@
+---
+import SiteNav from './SiteNav.astro';
+
+interface Props {
+  pathname: string;
+  id?: string;
+}
+
+const { pathname, id = 'site-nav' } = Astro.props;
+---
+
+<SiteNav pathname={pathname} id={id} />

@@ -1,0 +1,72 @@
+{
+  "viewport": {
+    "xxs": {
+      "$type": "number",
+      "$value": 320,
+      "$description": "viewport/xxs"
+    },
+    "xs": {
+      "$type": "number",
+      "$value": 480,
+      "$description": "viewport/xs"
+    },
+    "s": {
+      "$type": "number",
+      "$value": 768,
+      "$description": "viewport/s"
+    },
+    "m": {
+      "$type": "number",
+      "$value": 1024,
+      "$description": "viewport/m \u2014 desktop layout starts here"
+    },
+    "l": {
+      "$type": "number",
+      "$value": 1440,
+      "$description": "viewport/l \u2014 desktop frame width"
+    },
+    "xl": {
+      "$type": "number",
+      "$value": 1768,
+      "$description": "viewport/xl"
+    },
+    "mobile-max": {
+      "$type": "number",
+      "$value": 768,
+      "$description": "Below s \u2014 overlay navigation"
+    },
+    "content-max": {
+      "$type": "number",
+      "$value": 960,
+      "$description": "Main content column max width"
+    },
+    "mobile-drawer-max": {
+      "$type": "number",
+      "$value": 320,
+      "$description": "Mobile nav drawer panel max width"
+    },
+    "mobile-drawer-width": {
+      "$type": "number",
+      "$value": 249,
+      "$description": "home/mobile nav-menu/M drawer width"
+    },
+    "grid-column-side": {
+      "$type": "number",
+      "$value": 1,
+      "$description": "Side column ratio unit \u2014 1fr in the 1:2:1 desktop grid"
+    },
+    "grid-column-center": {
+      "$type": "number",
+      "$value": 2,
+      "$description": "Center column ratio unit \u2014 2fr in the 1:2:1 desktop grid"
+    },
+    "xxl": {
+      "$type": "number",
+      "$value": 2560,
+      "$description": "Figma large navigation breakpoint"
+    }
+  },
+  "$extensions": {
+    "com.figma.modeName": "Value"
+  }
+}

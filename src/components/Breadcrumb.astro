@@ -1,0 +1,133 @@
+---
+export type BreadcrumbItem = {
+  label: string;
+  href?: string;
+  current?: boolean;
+};
+
+interface Props {
+  items: BreadcrumbItem[];
+  size?: 'medium' | 'small';
+  label?: string;
+}
+
+const { items, size = 'medium', label = 'Breadcrumb' } = Astro.props;
+---
+
+<nav class:list={['breadcrumb', `breadcrumb--${size}`]} aria-label={label}>
+  <ol>
+    {
+      items.map((item, index) => {
+        const isLast = index === items.length - 1;
+        const isCurrent = item.current ?? isLast;
+
+        return (
+          <li>
+            {item.href && !isCurrent ? (
+              <a class="breadcrumb__link" href={item.href}>
+                {item.label}
+              </a>
+            ) : (
+              <span class="breadcrumb__current" aria-current={isCurrent ? 'page' : undefined}>
+                {item.label}
+              </span>
+            )}
+            {!isLast && (
+              <span class="breadcrumb__separator" aria-hidden="true">
+                /
+              </span>
+            )}
+          </li>
+        );
+      })
+    }
+  </ol>
+</nav>
+
+<style>
+  .breadcrumb ol {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--spacing-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-family: var(--font-family-mono);
+    font-weight: var(--font-weight-medium);
+    letter-spacing: var(--letter-spacing-mono-regular);
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  .breadcrumb li {
+    min-width: 0;
+    max-width: 100%;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+  }
+
+  .breadcrumb--medium ol {
+    font-size: var(--size-link-m);
+    line-height: 21px;
+  }
+
+  .breadcrumb--small ol {
+    font-size: var(--size-mono-s);
+    line-height: 18px;
+  }
+
+  .breadcrumb__link,
+  .breadcrumb__current {
+    padding: var(--spacing-1);
+    border-radius: 2px;
+  }
+
+  .breadcrumb__link {
+    color: var(--link-default);
+    text-decoration: none;
+  }
+
+  .breadcrumb__link:visited {
+    color: var(--link-default);
+  }
+
+  .breadcrumb__link:hover {
+    color: var(--link-hovered);
+    text-decoration-line: underline;
+    text-decoration-style: solid;
+    text-decoration-thickness: from-font;
+    text-underline-offset: from-font;
+    text-underline-position: from-font;
+  }
+
+  .breadcrumb__link:active {
+    background: var(--link-pressed-background);
+    color: var(--link-pressed);
+    text-decoration-line: underline;
+    text-decoration-style: solid;
+    text-decoration-thickness: from-font;
+    text-underline-offset: from-font;
+  }
+
+  .breadcrumb__link:focus-visible {
+    outline: 2px solid var(--link-focus);
+    outline-offset: 0;
+    color: var(--link-default);
+    text-decoration: none;
+  }
+
+  .breadcrumb__link:focus-visible:hover {
+    color: var(--link-hovered);
+    text-decoration-line: underline;
+  }
+
+  .breadcrumb__current {
+    color: var(--text-primary);
+  }
+
+  .breadcrumb__separator {
+    color: var(--text-tertiary);
+  }
+</style>

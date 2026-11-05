@@ -1,0 +1,58 @@
+<hgroup class="home-hero">
+  <h1 id="home-heading" class="home-hero__title">Can Aslan</h1>
+  <p class="home-hero__subtitle">Product design &amp; design strategy</p>
+</hgroup>
+
+<style>
+  .home-hero {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-2);
+    width: max-content;
+    max-width: 100%;
+    margin: 0;
+  }
+
+  .home-hero__title {
+    margin: 0;
+    /* Optical alignment: compensate for Inter's leading C side bearing.
+       Use em so the adjustment follows the responsive display size. */
+    margin-inline-start: -0.04em;
+    font-family: var(--font-family-sans);
+    font-size: clamp(var(--size-display-mobile), calc(0.125rem + 16.25vw), var(--size-display-small));
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-display);
+    letter-spacing: var(--letter-spacing-display);
+    font-kerning: normal;
+    font-feature-settings: 'kern' 1;
+    color: var(--text-primary);
+    overflow-wrap: anywhere;
+    text-align: left;
+  }
+
+  .home-hero__subtitle {
+    margin: 0;
+    font-family: var(--font-family-mono);
+    font-size: var(--size-mono-xl);
+    font-weight: var(--font-weight-medium);
+    line-height: var(--line-height-mono-regular);
+    letter-spacing: var(--letter-spacing-mono-regular);
+    color: var(--text-primary);
+    overflow-wrap: anywhere;
+  }
+
+  /* 80px at 768px → 100px at 1024px. */
+  @media (min-width: 768px) {
+    .home-hero__title {
+      font-size: clamp(var(--size-display-small), calc(1.25rem + 7.8125vw), var(--size-display-medium));
+    }
+  }
+
+  /* 100px at 1024px → 128px at 1440px, then capped. */
+  @media (min-width: 1024px) {
+    .home-hero__title {
+      font-size: clamp(var(--size-display-medium), calc(1.9423077rem + 6.7307692vw), var(--size-display));
+    }
+  }
+</style>

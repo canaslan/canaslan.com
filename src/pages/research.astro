@@ -1,0 +1,205 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Link from '../components/Link.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import InfoTable from '../components/InfoTable.astro';
+import { education, pastResearch, researchInterests } from '../data/research';
+---
+
+<Layout
+  title="Research — Can Aslan"
+  description="Research interests, education, and past research by Can Aslan."
+  wide
+  flush
+>
+  <div class="research-page">
+    <h1 class="research-title">Research</h1>
+    <Breadcrumb
+      items={[
+        { label: 'Can Aslan', href: '/' },
+        { label: 'Research', current: true },
+      ]}
+    />
+
+    <section class="research-section" aria-labelledby="research-interests-heading">
+      <h2 id="research-interests-heading" class="research-heading">Research interests</h2>
+      <ul class="interest-list" aria-label="Research interests">
+        {researchInterests.map((interest) => <li class="interest-item">{interest}</li>)}
+      </ul>
+    </section>
+
+    <section class="research-section" aria-labelledby="experience-heading">
+      <h2 id="experience-heading" class="research-heading">Experience</h2>
+      <InfoTable heading={education.heading} rows={[...education.rows]} label="Education" />
+    </section>
+
+    <section class="research-section" aria-labelledby="past-research-heading">
+      <h2 id="past-research-heading" class="research-heading">Past research</h2>
+      <ul class="paper-list">
+        {
+          pastResearch.map((paper) => (
+            <li class="paper-card">
+              <div class="paper-card__header">
+                <p class="paper-card__title">
+                  {paper.title}
+                  {paper.subtitle ? (
+                    <>
+                      <br />
+                      <br />
+                      {paper.subtitle}
+                    </>
+                  ) : null}
+                </p>
+              </div>
+              <div class="paper-card__footer">
+                <Link
+                  href={paper.href}
+                  variant="external"
+                  size="large"
+                  newTab
+                  class="paper-card__link"
+                >
+                  View paper
+                </Link>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </div>
+</Layout>
+
+<style>
+  .research-title {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+  }
+  .research-page {
+    display: flex;
+    flex-direction: column;
+    width: min(100%, 37.5rem);
+    margin-inline: auto;
+    padding-bottom: var(--spacing-6);
+  }
+
+  .research-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+    margin-top: var(--spacing-4);
+  }
+
+  .research-section + .research-section {
+    margin-top: var(--spacing-6);
+  }
+
+  .research-heading {
+    margin: 0;
+    color: var(--text-primary);
+    font-family: var(--font-family-sans);
+    font-size: var(--size-h2);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-display);
+    letter-spacing: -0.04em;
+  }
+
+  .interest-list {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .interest-item {
+    color: var(--text-primary);
+    font-family: var(--font-family-sans);
+    font-size: clamp(var(--size-display-mobile), 5vw, var(--size-principle));
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-display);
+    letter-spacing: var(--letter-spacing-display);
+    font-kerning: normal;
+    font-feature-settings: 'kern' 1;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  .paper-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .paper-card {
+    display: flex;
+    flex-direction: column;
+    overflow: clip;
+    border: 1px solid var(--border-default);
+    border-radius: var(--spacing-1);
+  }
+
+  .paper-card__header {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: var(--spacing-2);
+    border-bottom: 1px solid var(--border-default);
+    background: var(--surface-subtle);
+  }
+
+  .paper-card__title {
+    min-width: 0;
+    overflow-wrap: anywhere;
+    margin: 0;
+    color: var(--text-primary);
+    font-family: var(--font-family-mono);
+    font-size: var(--size-body-m);
+    font-weight: var(--font-weight-medium);
+    line-height: var(--line-height-normal);
+    letter-spacing: var(--letter-spacing-mono-regular);
+    white-space: pre-wrap;
+  }
+
+  .paper-card__footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    min-height: 2.375rem;
+    padding: var(--spacing-2);
+    background: var(--surface-default);
+  }
+
+  .paper-card__footer :global(.paper-card__link) {
+    justify-content: flex-end;
+    width: 100%;
+  }
+
+  @media (max-width: 479px) {
+    .interest-item {
+      font-size: clamp(2rem, 11vw, var(--size-display-mobile));
+      white-space: normal;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .research-page {
+      width: min(100%, var(--viewport-content-max));
+      max-width: 37.5rem;
+      margin-inline: 0;
+      padding-left: var(--spacing-2);
+    }
+  }
+</style>

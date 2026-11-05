@@ -1,0 +1,68 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+---
+
+<Layout title="Colophon — Can Aslan" description="The design, typography, and technology behind Can Aslan’s website." viewportGrid>
+  <article class="colophon-page editorial-page">
+    <Breadcrumb items={[
+      { label: 'Can Aslan', href: '/' },
+      { label: 'Colophon', current: true },
+    ]} />
+    <h1>Colophon</h1>
+    <div class="colophon-copy">
+      <p>This site was designed and built by Can Aslan.</p>
+
+      <section aria-labelledby="design-heading">
+        <h2 id="design-heading">Design</h2>
+        <p>The design starts in Figma, with a shared system of colours, typography, spacing, and components. A warm neutral palette gives the content room to breathe, while orange draws attention to selected items and interactions. Light and dark themes follow the same visual language.</p>
+      </section>
+
+      <section aria-labelledby="typography-heading">
+        <h2 id="typography-heading">Typography</h2>
+        <p>Headings and body text are set in Inter. Navigation, labels, and tables use JetBrains Mono. Both typefaces are served through Google Fonts.</p>
+      </section>
+
+      <section aria-labelledby="build-heading">
+        <h2 id="build-heading">Build</h2>
+        <p>The site is built with Astro, using semantic HTML, CSS, and JavaScript for interactive features. Design tokens connect the Figma system to the code, keeping colours, spacing, and typography consistent. Static pages are built for deployment on Cloudflare Workers.</p>
+      </section>
+
+      <section aria-labelledby="accessibility-heading">
+        <h2 id="accessibility-heading">Accessibility and performance</h2>
+        <p>The site aims to meet WCAG 2.2 Level AA, with semantic landmarks, keyboard navigation, visible focus states, and support for reduced motion. Accessibility testing is ongoing. Astro generates static pages, with JavaScript reserved for features such as navigation and theme switching.</p>
+      </section>
+
+      <footer><p>© 2026 Can Aslan. Last updated November 2026.</p></footer>
+    </div>
+  </article>
+</Layout>
+
+<style>
+  h1 {
+    margin: var(--page-heading-gap) 0 var(--spacing-4);
+    font-size: var(--size-page-headline);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-display);
+    letter-spacing: var(--letter-spacing-page-headline);
+    font-optical-sizing: none;
+  }
+  .colophon-copy {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+    font-size: var(--size-body-m);
+    line-height: var(--line-height-mono-regular);
+  }
+  .colophon-copy p { margin: 0; }
+  h2 {
+    margin: 0;
+    font-size: var(--size-h2);
+    line-height: calc(7 / 6);
+    letter-spacing: var(--letter-spacing-page-headline);
+  }
+  @media (min-width: 1768px) {
+    /* Keep the sample's 720px prose measure within the centered viewport grid. */
+    .colophon-page { --editorial-width: 45rem; }
+  }
+</style>

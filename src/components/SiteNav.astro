@@ -1,0 +1,314 @@
+---
+import { siteNav, siteVersion, isNavActive } from '../data/navigation';
+
+interface Props {
+  pathname: string;
+  id?: string;
+}
+
+const { pathname, id = 'site-nav' } = Astro.props;
+const hash = Astro.url.hash;
+---
+
+<nav class="site-nav" id={id} aria-label="Site">
+  <ul class="site-nav__list">
+    {
+      siteNav.map((item) => {
+        if (item.kind === 'status') {
+          return (
+            <li class="site-nav__item">
+              <span class="site-nav__pill site-nav__pill--meta">
+                <span class="site-nav__status-dot" aria-hidden="true"></span>
+                {item.label}
+              </span>
+            </li>
+          );
+        }
+
+        if (item.kind === 'clock') {
+          return (
+            <li class="site-nav__item">
+              <span class="site-nav__pill site-nav__pill--meta">
+                <svg class="site-nav__icon site-nav__icon--clock" viewBox="0 0 16 16" aria-hidden="true">
+                  <circle cx="8" cy="8" r="6.25" fill="none" stroke="currentColor" stroke-width="1.25" />
+                  <path
+                    d="M8 4.5V8l2.25 1.5"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.25"
+                    stroke-linecap="round"
+                  />
+                </svg>
+                <span class="site-nav__clock-location">Cambridge, UK time: </span>
+                <time class="site-nav__clock" datetime="" title="Cambridge, UK" data-nav-clock>--:--:-- UK</time>
+              </span>
+            </li>
+          );
+        }
+
+        const active =
+          !item.external &&
+          isNavActive(pathname, item.href, hash, { resolveEmptyHashParents: false });
+
+        const opensInNewTab = Boolean(item.external && !item.href.startsWith('mailto:'));
+
+        return (
+          <li class:list={['site-nav__item', { 'site-nav__item--indent': item.indent }]}>
+            <a
+              href={item.href}
+              class:list={['site-nav__pill', 'site-nav__pill--link', { 'is-active': active }]}
+              aria-current={active ? 'page' : undefined}
+              {...(opensInNewTab ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+            >
+              {item.icon === 'door' ? (
+                <svg class="site-nav__icon site-nav__icon--door" viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M9.167 10.833a.417.417 0 1 0 0-.833.417.417 0 0 0 0 .833ZM5.833 17.5v-1.667L10.833 15V5.729c0-.208-.062-.396-.187-.563a.833.833 0 0 0-.479-.292L5.833 4.167V2.5l4.583.75c.611.111 1.111.396 1.5.854.389.459.584.994.584 1.605v10.667L5.833 17.5ZM2.5 17.5v-1.667h1.667V4.167c0-.472.163-.868.49-1.187.319-.32.712-.48 1.17-.48h8.333c.472 0 .869.16 1.188.48.32.319.48.715.48 1.187v11.666H17.5V17.5H2.5Zm3.333-1.667h8.333V4.167H5.833v11.666Z"
+                    fill="currentColor"
+                  />
+                </svg>
+              ) : null}
+              {item.label}
+              {item.external ? (
+                <svg class="site-nav__icon site-nav__icon--external" viewBox="0 0 16 16" aria-hidden="true">
+                  <path
+                    d="M4.267 12 3.333 11.067 9.733 4.667H4V3.333h8v8h-1.333V5.6L4.267 12Z"
+                    fill="currentColor"
+                  />
+                </svg>
+              ) : null}
+            </a>
+          </li>
+        );
+      })
+    }
+
+    <li class="site-nav__item site-nav__item--footer">
+      <a
+        href="/colophon"
+        class:list={['site-nav__pill', 'site-nav__pill--link', { 'is-active': isNavActive(pathname, '/colophon') }]}
+        aria-label={`${siteVersion} — Colophon`}
+        aria-current={isNavActive(pathname, '/colophon') ? 'page' : undefined}
+      >{siteVersion}</a>
+      <button type="button" class="site-nav__mode-toggle" data-theme-toggle aria-label="Switch to dark mode">
+        <span class="site-nav__mode-icon site-nav__mode-icon--day" aria-hidden="true"></span>
+        <span class="site-nav__mode-icon site-nav__mode-icon--night" aria-hidden="true"></span>
+      </button>
+    </li>
+  </ul>
+</nav>
+
+<script is:inline>
+  (function () {
+    function normalizePath(pathname) {
+      return pathname.endsWith('/') && pathname.length > 1 ? pathname.slice(0, -1) : pathname;
+    }
+
+    function normalizeHash(hash) {
+      return hash.charAt(0) === '#' ? hash.slice(1) : hash;
+    }
+
+    var path = normalizePath(location.pathname);
+    var hash = normalizeHash(location.hash);
+    var links = document.querySelectorAll('.site-nav__pill--link');
+    var hashClaims = {};
+
+    links.forEach(function (link) {
+      var href = link.getAttribute('href') || '';
+      if (href.charAt(0) !== '/') return;
+      var parts = href.split('#');
+      if (!parts[1]) return;
+      hashClaims[normalizePath(parts[0]) + '#' + parts[1]] = true;
+    });
+
+    links.forEach(function (link) {
+      var href = link.getAttribute('href') || '';
+      if (href.charAt(0) !== '/') return;
+
+      var parts = href.split('#');
+      var target = normalizePath(parts[0] || '/');
+      var targetHash = parts[1] || '';
+      var active = false;
+
+      if (target === '/') {
+        active = path === '/' && !hash;
+      } else if (targetHash) {
+        active = path === target && hash === targetHash;
+      } else if (path === target) {
+        active = !hash || !hashClaims[path + '#' + hash];
+      }
+
+      link.classList.toggle('is-active', active);
+      if (active) link.setAttribute('aria-current', 'page');
+      else link.removeAttribute('aria-current');
+    });
+  })();
+</script>
+
+<style>
+  .site-nav__clock-location {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  .site-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: var(--spacing-3);
+  }
+
+  .site-nav__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-2);
+  }
+
+  .site-nav__item {
+    display: flex;
+    align-items: flex-start;
+    width: fit-content;
+  }
+
+  .site-nav__item--indent {
+    padding-left: var(--spacing-3);
+  }
+
+  .site-nav__item--footer {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--spacing-2);
+  }
+
+  .site-nav__pill {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    padding: var(--spacing-2);
+    border-radius: var(--spacing-1);
+    background: var(--nav-pill-resting);
+    color: var(--text-primary);
+    font-family: var(--font-family-mono);
+    font-size: var(--size-mono-regular);
+    font-weight: var(--font-weight-medium);
+    line-height: var(--line-height-mono-regular);
+    letter-spacing: var(--letter-spacing-mono-regular);
+    white-space: nowrap;
+    text-decoration: none;
+    border: 0;
+  }
+
+  .site-nav__pill--link:hover {
+    background: var(--nav-pill-hovered);
+  }
+
+  .site-nav__pill--link.is-active {
+    background: var(--nav-pill-selected);
+    color: var(--text-on-accent);
+  }
+
+  .site-nav__pill--link.is-active:hover {
+    background: var(--nav-pill-selected-hovered);
+  }
+
+  .site-nav__pill--meta {
+    cursor: default;
+  }
+
+  .site-nav__icon {
+    flex-shrink: 0;
+    display: block;
+  }
+
+  .site-nav__icon--door {
+    width: var(--icon-m);
+    height: var(--icon-m);
+  }
+
+  .site-nav__icon--external,
+  .site-nav__icon--clock {
+    width: var(--icon-xs);
+    height: var(--icon-xs);
+  }
+
+  .site-nav__status-dot {
+    width: var(--icon-status-dot);
+    height: var(--icon-status-dot);
+    border-radius: 999px;
+    background: var(--icon-positive-tertiary);
+    flex-shrink: 0;
+  }
+
+  .site-nav__clock {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .site-nav__mode-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: var(--icon-mode-toggle);
+    height: var(--icon-mode-toggle);
+    padding: var(--spacing-2);
+    border: 0;
+    border-radius: var(--spacing-1);
+    background: var(--nav-pill-resting);
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: background-color 150ms ease;
+  }
+
+  .site-nav__mode-toggle:hover {
+    background: var(--nav-pill-hovered);
+  }
+
+  .site-nav__mode-icon {
+    width: var(--icon-l);
+    height: var(--icon-l);
+    display: block;
+    background: currentColor;
+    mask: url("/icons/theme-light.svg") center / contain no-repeat;
+  }
+
+  .site-nav__mode-icon--night {
+    mask-image: url("/icons/theme-dark.svg");
+    display: none;
+  }
+
+  :global([data-theme='dark']) .site-nav__mode-icon--day {
+    display: none;
+  }
+
+  :global([data-theme='dark']) .site-nav__mode-icon--night {
+    display: block;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .site-nav__mode-toggle { transition: none; }
+  }
+
+  /* Figma NavMenu/L at viewport/xxl; M remains the default. */
+  @media (min-width: 2560px) {
+    .site-nav__pill {
+      font-size: var(--size-mono-xl);
+      padding: calc(var(--spacing-2) * 1.5) var(--spacing-3);
+    }
+
+    .site-nav__mode-toggle {
+      width: var(--icon-mobile-menu-button);
+      height: var(--icon-mobile-menu-button);
+    }
+
+    .site-nav__icon--external {
+      width: var(--icon-m);
+      height: var(--icon-m);
+    }
+  }
+</style>

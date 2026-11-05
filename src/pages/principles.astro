@@ -1,0 +1,38 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Link from '../components/Link.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import PrincipleHeader from '../components/PrincipleHeader.astro';
+
+import principles from '../data/principles.json';
+---
+<Layout title="Principles — Can Aslan" description="The principles behind Can Aslan's work." viewportGrid>
+  <div class="principles-page editorial-page">
+    <Breadcrumb items={[
+      { label: 'Can Aslan', href: '/' },
+      { label: 'Work', href: '/projects' },
+      { label: 'Principles', current: true },
+    ]} />
+    <h1 class="sr-only">Principles</h1>
+    <ul class="principles-list" aria-label="Principles">
+      {principles.map((principle) => <li><PrincipleHeader {...principle} /></li>)}
+    </ul>
+    <footer class="principles-footer">
+      <Link href="https://github.com/canaslan/brand/blob/main/practice/principles.md" variant="external" size="large" newTab>View on GitHub</Link>
+    </footer>
+  </div>
+</Layout>
+<style>
+  .principles-list { display: flex; flex-direction: column; gap: var(--spacing-2); margin: var(--page-heading-gap) 0 0; padding: 0; list-style: none; }
+  .principles-list li { min-width: 0; }
+  .principles-list li + li { border-top: 1px solid var(--border-default); padding-top: var(--spacing-2); }
+  .principles-footer { margin-top: var(--spacing-3); }
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+  /* The Principles frames intentionally extend beyond the editorial prose column. */
+  @media (min-width: 1024px) {
+    .principles-page { --editorial-width: min(65.5625rem, calc(75% - var(--spacing-5))); }
+  }
+  @media (min-width: 1768px) {
+    .principles-page { --editorial-width: 65.5625rem; }
+  }
+</style>

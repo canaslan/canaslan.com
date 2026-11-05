@@ -1,0 +1,19 @@
+.services-page {
+  --services-start: var(--spacing-3);
+  --services-width: calc(100% - var(--spacing-3) * 2);
+  width: var(--services-width);
+  margin-left: var(--services-start);
+  padding-block: var(--spacing-3) var(--spacing-9);
+}
+/* Detail breadcrumbs wrap to keep every destination usable on narrow screens. */
+.services-page .breadcrumb ol { flex-wrap: wrap; }
+.services-page .breadcrumb li:last-child { min-width: 0; white-space: normal; }
+@media (min-width: 768px) {
+  .services-page { --services-start: calc(100% / 3); --services-width: calc(100% * 7 / 12); }
+}
+@media (min-width: 1024px) {
+  .services-page { --services-start: 25%; --services-width: calc(75% - var(--spacing-3)); }
+}
+@media (min-width: 1768px) {
+  .services-page { --services-start: calc((100% - var(--viewport-l)) / 2 + var(--viewport-l) / 4); --services-width: calc(var(--viewport-l) * 3 / 4 - var(--spacing-3)); }
+}

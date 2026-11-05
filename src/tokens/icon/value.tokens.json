@@ -1,0 +1,52 @@
+{
+  "icon": {
+    "m": {
+      "$type": "number",
+      "$value": 20,
+      "$description": "icon/M \u2014 nav leading icons"
+    },
+    "xs": {
+      "$type": "number",
+      "$value": 16,
+      "$description": "icon/XS \u2014 external link and clock icons"
+    },
+    "s": {
+      "$type": "number",
+      "$value": 18,
+      "$description": "icon/S \u2014 medium external links"
+    },
+    "l": {
+      "$type": "number",
+      "$value": 24,
+      "$description": "icon/L \u2014 theme toggle icons"
+    },
+    "status-dot": {
+      "$type": "number",
+      "$value": 10,
+      "$description": "Available-for-hire status indicator"
+    },
+    "principle-dot": {
+      "$type": "number",
+      "$value": 12,
+      "$description": "Hovered or focused principle indicator"
+    },
+    "mode-toggle": {
+      "$type": "number",
+      "$value": 40,
+      "$description": "NavItem/ModeToggle size M"
+    },
+    "mobile-logo": {
+      "$type": "number",
+      "$value": 36,
+      "$description": "Mobile header logo button"
+    },
+    "mobile-menu-button": {
+      "$type": "number",
+      "$value": 48,
+      "$description": "Mobile menu toggle \u2014 bottom-left fixed button"
+    }
+  },
+  "$extensions": {
+    "com.figma.modeName": "Value"
+  }
+}

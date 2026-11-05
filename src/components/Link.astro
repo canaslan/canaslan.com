@@ -1,0 +1,178 @@
+---
+import '../styles/links.css';
+
+interface Props {
+  href?: string;
+  variant?: 'external' | 'inline';
+  size?: 'large' | 'medium' | 'small';
+  icon?: 'external' | 'down' | 'up' | false;
+  newTab?: boolean;
+  class?: string;
+  [key: string]: unknown;
+}
+
+const {
+  href,
+  variant = 'inline',
+  size = 'large',
+  icon: iconProp,
+  newTab = false,
+  class: className,
+  ...attributes
+} = Astro.props;
+
+const icon = iconProp ?? (variant === 'external' ? 'external' : false);
+const kind = icon === 'down' || icon === 'up' ? 'directional' : variant;
+const Element = href ? 'a' : 'button';
+---
+
+<Element
+  href={href}
+  type={href ? undefined : 'button'}
+  class:list={['link', `link--${kind}`, `link--${size}`, className]}
+  target={href && newTab ? '_blank' : undefined}
+  rel={href && newTab ? 'noopener noreferrer' : undefined}
+  {...attributes}
+>
+  <span class="link__label"><slot /></span>
+  {icon ? <span class:list={['link__icon', `link__icon--${icon}`]} aria-hidden="true"></span> : null}
+</Element>
+
+<style>
+  .link {
+    display: inline-flex;
+    align-items: center;
+    width: fit-content;
+    min-width: 0;
+    max-width: 100%;
+    margin: 0;
+    padding: var(--spacing-1);
+    border: 0;
+    border-radius: 2px;
+    background: transparent;
+    color: var(--link-default);
+    line-height: 24px;
+    text-decoration-thickness: from-font;
+    text-underline-offset: from-font;
+    text-underline-position: from-font;
+    cursor: pointer;
+  }
+
+  .link--inline {
+    display: inline;
+    width: auto;
+  }
+
+  .link--external {
+    gap: var(--spacing-2);
+    font-family: var(--font-family-mono);
+    font-weight: var(--font-weight-medium);
+    letter-spacing: var(--letter-spacing-mono-regular);
+    text-decoration: none;
+  }
+
+  .link--directional {
+    gap: var(--spacing-1);
+    font-family: var(--font-family-mono);
+    font-size: var(--size-link-m);
+    font-weight: var(--font-weight-medium);
+    line-height: 21px;
+    letter-spacing: var(--letter-spacing-mono-regular);
+    text-decoration-line: none;
+    text-decoration-style: solid;
+  }
+
+  .link--large {
+    font-size: var(--size-body-m);
+    line-height: 24px;
+  }
+
+  .link--medium {
+    font-size: var(--size-link-m);
+    line-height: 21px;
+  }
+
+  .link--small {
+    font-size: var(--size-mono-s);
+    line-height: 18px;
+  }
+
+  .link--directional.link--large,
+  .link--directional.link--medium,
+  .link--directional.link--small {
+    font-size: var(--size-link-m);
+    line-height: 21px;
+  }
+
+  .link__label {
+    min-width: 0;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  .link--inline .link__label {
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  .link__icon {
+    display: block;
+    flex: 0 0 auto;
+    background-color: currentColor;
+  }
+
+  .link__icon--external {
+    -webkit-mask: url('/icons/arrow-outward.svg') center / contain no-repeat;
+    mask: url('/icons/arrow-outward.svg') center / contain no-repeat;
+  }
+
+  .link__icon--up,
+  .link__icon--down {
+    -webkit-mask: url('/icons/arrow-upward.svg') center / contain no-repeat;
+    mask: url('/icons/arrow-upward.svg') center / contain no-repeat;
+  }
+
+  .link__icon--down {
+    transform: rotate(180deg);
+  }
+
+  .link--large .link__icon--external {
+    width: var(--icon-m);
+    height: var(--icon-m);
+  }
+
+  .link--medium .link__icon--external {
+    width: var(--icon-s);
+    height: var(--icon-s);
+  }
+
+  .link--small .link__icon--external {
+    width: var(--icon-xs);
+    height: var(--icon-xs);
+  }
+
+  .link--directional .link__icon {
+    width: var(--icon-m);
+    height: var(--icon-m);
+  }
+
+  .link--external:hover,
+  .link--external:active,
+  .link--directional:hover,
+  .link--directional:active,
+  .link--directional:focus-visible {
+    text-decoration-line: underline;
+    text-decoration-style: solid;
+    text-decoration-thickness: from-font;
+    text-underline-offset: from-font;
+  }
+
+  .link--external:focus-visible:not(:hover):not(:active) {
+    text-decoration: none;
+  }
+
+  .link:disabled {
+    cursor: wait;
+    opacity: 0.65;
+  }
+</style>

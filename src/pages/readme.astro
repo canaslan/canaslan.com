@@ -1,0 +1,240 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Link from '../components/Link.astro';
+import InfoTable from '../components/InfoTable.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import { readmeSourceUrl } from '../data/readme';
+import { Picture } from 'astro:assets';
+import gearPhoto from '../assets/readme/gear-on-the-go.jpg';
+
+const tools = [
+  { label: 'Design & Ideation', value: 'Figma, Affinity, Midjourney' },
+  { label: 'Mapping', value: 'FigJam' },
+  { label: 'Video', value: 'DaVinci Resolve' },
+  { label: 'Knowledge management', value: 'VSCode, Obsidian' },
+  { label: 'AI', value: 'ChatGPT, Claude' },
+  { label: 'Development', value: 'VS Code, iTerm2, Codex, Cursor' },
+];
+const workspace = [
+  { label: 'Desk', value: 'Desktronic HomePro standing desk' },
+  { label: 'Main device', value: 'MacBook Pro 14’ M2 Pro (32GB)' },
+  { label: 'Display', value: 'Dell 27 Plus 4K USB-C Monitor - S2725QC' },
+  { label: 'Ubuntu playground', value: 'Dell Latitude e5430' },
+  {
+    label: 'Keyboard',
+    value: 'Keychron K2',
+    href: 'https://www.keychron.com/products/keychron-k2-wireless-mechanical-keyboard?_pos=6&_psid=7f0ca5d2e&_psq=k2&_ss=e&ref=CANASLAN',
+    icon: 'external' as const,
+  },
+  { label: 'Mouse', value: 'Logitech G305 Lightspeed Wireless Gaming Mouse - White' },
+  { label: 'Headphones', value: 'Sennheiser HD 560S' },
+];
+const gear = [
+  { label: 'Photo camera', value: 'Sony SLT-A57' },
+  { label: 'Bag', value: 'Urth Arkose Camera Backpack Set' },
+];
+const interests = ['The Moon', 'Any shade of orange', 'The 80s and 90s'];
+---
+
+<Layout title="Readme — Can Aslan" description="The origin story, side quests, tools, and interests of Can Aslan." viewportGrid>
+  <div class="readme-page" id="readme-top">
+    <section class="readme-intro" aria-labelledby="readme-heading">
+      <header class="readme-intro__header">
+        <Breadcrumb
+          items={[
+            { label: 'Can Aslan', href: '/' },
+            { label: 'Readme', current: true },
+          ]}
+        />
+        <h1 id="readme-heading" tabindex="-1">
+          <span>Can Aslan is a 90s kid,</span>
+          <span>product designer</span>
+          <span>with 10 years of experience,</span>
+          <span>a sprinter, and someone struggling with having too many projects and ideas.</span>
+        </h1>
+      </header>
+      <Link href="#readme-content" icon="down" class="readme-intro__trigger">Learn more</Link>
+    </section>
+
+    <article class="readme-details" id="readme-content" tabindex="-1" aria-label="About Can Aslan">
+      <section aria-labelledby="origin-heading">
+        <h2 id="origin-heading">The origin story</h2>
+        <p>I entered the world in 1986, born in the same hours as the Chernobyl disaster and just days after the last sighting of Halley’s Comet. After being declared without a pulse for over 30 minutes, I decided to stick around anyway, earning the title of "miracle baby" before I could even crawl.</p>
+        <p>Growing up in the 90s, I spent my time captivated by the "impossible": communicating with extraterrestrials, time travel, and teleportation. I was the kid sketching solar-powered firefighting drones and Hyperloop-style maglev trains long before they were headlines.</p>
+        <p>Today, that childhood fascination with the future has evolved into a career dedicated to solving complex problems and driving progress through strategic, thoughtful design.</p>
+        <figure>
+          <div class="readme-gallery">
+            <img class="readme-gallery__portrait" src="/images/readme/childhood.jpg" width="460" height="460" alt="Can Aslan as a child" loading="lazy" />
+            <img src="/images/readme/maglev.jpg" width="700" height="495" alt="Childhood sketch of a maglev train concept" loading="lazy" />
+            <img src="/images/readme/car-interface.png" width="992" height="686" alt="Childhood sketch of an autonomous car interface" loading="lazy" />
+          </div>
+          <figcaption>Maglev trains and autonomous car interfaces, done by this kid on the left.</figcaption>
+        </figure>
+      </section>
+      <hr />
+      <div class="readme-personal">
+        <section aria-labelledby="quests-heading">
+          <h2 id="quests-heading">Side quests</h2>
+          <ul>
+            <li>I rediscovered my natural speed and became a competitive sprinter at age 39.</li>
+            <li>For a short period, I played as a licensed centre forward in the Amateur Football League in Turkey.</li>
+          </ul>
+        </section>
+        <section aria-labelledby="interests-heading">
+          <h2 id="interests-heading">What turns me on</h2>
+          <ul>{interests.map((interest) => <li>{interest}</li>)}</ul>
+        </section>
+        <section aria-labelledby="dislikes-heading">
+          <h2 id="dislikes-heading">What turns me off</h2>
+          <ul>
+            <li>Products that don't work properly or feel "broken."</li>
+            <li>Poorly designed organizations and structures.</li>
+            <li>Car-centric urban planning and lackluster landscape architecture.</li>
+          </ul>
+        </section>
+      </div>
+      <section aria-labelledby="tools-heading">
+        <h2 id="tools-heading">Software stack</h2>
+        <InfoTable heading="Software stack" columns={['Category', 'Stack']} rows={tools} />
+      </section>
+      <section aria-labelledby="workspace-heading">
+        <h2 id="workspace-heading">The workspace</h2>
+        <InfoTable heading="The workspace" columns={['Category', 'Product']} rows={workspace} />
+      </section>
+      <section aria-labelledby="gear-heading">
+        <h2 id="gear-heading">Gear on the go</h2>
+        <Picture
+          src={gearPhoto}
+          formats={['avif']}
+          fallbackFormat="webp"
+          width={720}
+          widths={[360, 540, 720, 1080, 1440]}
+          sizes="(min-width: 1236px) 720px, (min-width: 768px) 58.333vw, calc(100vw - 32px)"
+          quality={75}
+          alt="Camera backpack, laptop, Sony camera, and everyday essentials arranged on a wooden floor"
+          loading="lazy"
+          decoding="async"
+          class="readme-gear-photo"
+        />
+        <InfoTable heading="Gear on the go" columns={['Category', 'Product']} rows={gear} />
+      </section>
+      <Link href={readmeSourceUrl} variant="external" newTab>View on GitHub</Link>
+      <footer class="readme-back"><Link href="#readme-heading" icon="up">Back to top</Link></footer>
+    </article>
+  </div>
+</Layout>
+
+<style>
+  .readme-page {
+    --readme-hero-width: calc(100% - var(--spacing-3) * 2);
+    padding-block: var(--page-top) var(--spacing-8);
+  }
+  .readme-intro, .readme-details { min-width: 0; margin-left: var(--page-start); }
+  .readme-intro { width: min(var(--readme-hero-width), calc(100% - var(--page-start) - var(--spacing-3))); }
+  .readme-details { width: min(45rem, var(--readme-hero-width), calc(100% - var(--page-start) - var(--spacing-3))); }
+
+  .readme-intro {
+    min-height: calc(100svh - var(--spacing-3));
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--spacing-6);
+    padding-bottom: var(--spacing-4);
+  }
+  .readme-intro__header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--page-heading-gap);
+    width: 100%;
+    min-width: 0;
+  }
+  .readme-intro h1 {
+    /* Match Figma Inter metrics rather than automatic display optical sizing. */
+    font-optical-sizing: none;
+    margin: 0;
+    font-size: var(--size-page-headline);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-display);
+    letter-spacing: var(--letter-spacing-page-headline);
+    overflow-wrap: break-word;
+  }
+  .readme-intro h1 span { display: block; }
+  .readme-details {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+    padding-top: var(--spacing-4);
+    scroll-margin-top: var(--spacing-3);
+    line-height: 1.5;
+  }
+  .readme-details h2 {
+    margin: 0 0 var(--spacing-3);
+    font-size: var(--size-h2);
+    font-weight: var(--font-weight-bold);
+    line-height: calc(7 / 6);
+    /* Retain the Figma section-heading tracking independently of hero text. */
+    letter-spacing: -0.06em;
+  }
+  .readme-details p { margin: 0 0 var(--spacing-4); }
+  .readme-details p:last-of-type { margin-bottom: var(--spacing-3); }
+  .readme-details ul { margin: 0; padding-left: var(--spacing-4); }
+  .readme-personal { display: grid; gap: var(--spacing-3); }
+  figure { margin: 0; }
+  .readme-gallery {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    gap: var(--spacing-2);
+    aspect-ratio: 720 / 418;
+  }
+  .readme-gallery img {
+    width: 100%; height: 100%; min-height: 0; object-fit: cover;
+    border: 1px solid var(--border-default);
+    /* Figma gallery corner radius; no corresponding radius token exists. */
+    border-radius: 13px;
+  }
+  .readme-gallery__portrait { grid-row: span 2; }
+  .readme-details :global(.readme-gear-photo) {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    margin-bottom: var(--spacing-3);
+    border: 1px solid var(--border-default);
+    /* Figma small radius; only radius-medium is currently exported. */
+    border-radius: 4px;
+  }
+  figcaption {
+    margin-top: var(--spacing-2);
+    font-family: var(--font-family-mono);
+    font-size: var(--size-mono-s);
+    letter-spacing: var(--letter-spacing-mono-small);
+  }
+  hr { width: 100%; margin: 0; border: 0; border-top: 1px solid var(--border-default); }
+  .readme-back { display: flex; align-items: center; gap: var(--spacing-3); padding-block: var(--spacing-2); }
+  .readme-back::before { content: ''; flex: 1; border-top: 1px solid var(--border-default); }
+  @media (width < 768px) {
+    /* Keep the jump link clear of the fixed mobile menu button. */
+    .readme-intro :global(.readme-intro__trigger) { margin-left: calc(var(--icon-mobile-menu-button) + var(--spacing-3)); }
+  }
+  @media (min-width: 768px) {
+    .readme-page { --readme-hero-width: calc(100% * 7 / 12); }
+  }
+  @media (min-width: 1024px) {
+    .readme-page {
+      /* The 1024px text layer is 712px; the 1440px hero is 960px. */
+      --readme-hero-width: calc(59.615385vw + 6.346154rem);
+    }
+  }
+  @media (min-width: 1440px) {
+    .readme-page { --readme-hero-width: calc(21.646341vw + 40.518293rem); }
+  }
+  @media (min-width: 1768px) {
+    .readme-page {
+      /* Retain the wider hero measure, capped by the available grid space. */
+      --readme-hero-width: min(79.8125rem, calc(31.060606vw + 30.11553rem));
+    }
+  }
+</style>

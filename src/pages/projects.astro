@@ -1,0 +1,119 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Link from '../components/Link.astro';
+import Button from '../components/Button.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import InfoTable from '../components/InfoTable.astro';
+import { workIntro, workSummary, experience, academicRows } from '../data/work';
+---
+<Layout title="Work — Can Aslan" description={workSummary} viewportGrid>
+  <div class="work-page" id="top">
+    <header class="work-intro">
+      <div class="work-intro__content">
+        <Breadcrumb items={[{ label: 'Can Aslan', href: '/' }, { label: 'Work', current: true }]} />
+        <h1>{workIntro}</h1>
+        <p class="work-summary">Over the past decade, I’ve brought together design, product management, and strategic thinking to turn complex challenges into useful products. I’m currently working on digital assessment solutions at <a class="inline-link" href="https://www.cambridge.org/" target="_blank" rel="noopener noreferrer">Cambridge University Press &amp; Assessment.</a></p>
+      </div>
+      <Link href="#experience" icon="down" class="work-jump">View work</Link>
+    </header>
+    <div class="work-details">
+      <section id="experience" aria-labelledby="experience-heading" tabindex="-1">
+        <h2 id="experience-heading">12 years in design and product development</h2>
+        <p class="experience-description">In four countries, combining theory and practice, across all parts of product development.</p>
+        <ol class="experience-list">
+          {experience.map(item => <li class="experience-item" style={`--segment-color: var(--orange-${item.color}); --segment-height: ${item.height / 16}rem;`}>
+            <div class="experience-content">
+              <div class="experience-role">
+                <h3>{item.organization} {item.context && <span class="muted">({item.context})</span>}</h3>
+                <p>{item.role}</p>
+                <p class="experience-meta">{item.dates}</p>
+                <p class="experience-meta">{item.location}</p>
+              </div>
+              {item.projects && <ul class="project-list">{item.projects.map(project => <li>
+                <h4 class="project-title">{project.title}</h4>
+                <p class="experience-meta project-description">{project.description}</p>
+              </li>)}</ul>}
+            </div>
+          </li>)}
+        </ol>
+      </section>
+      <div class="work-academic"><InfoTable heading="/ACADEMIC GROUNDING" rows={academicRows} /></div>
+      <div class="cv-download">
+        <Button icon="arrow-forward" href="/can-aslan-cv.pdf" target="_blank" rel="noopener noreferrer" aria-label="View CV (PDF, opens in a new tab)">View CV</Button>
+      </div>
+      <footer class="work-footer">
+        <div class="work-actions">
+          <Button variant="utility" icon="download" href="/work.md" download="can-aslan-work.md">Download page as markdown</Button>
+          <Button variant="utility" icon="copy" id="copy-work" hidden>Copy page for LLM</Button>
+        </div>
+        <p id="copy-status" role="status"></p>
+        <div class="work-back"><Link href="#top" icon="up">Back to top</Link></div>
+      </footer>
+    </div>
+  </div>
+</Layout>
+<script>
+  const copyButton = document.querySelector<HTMLButtonElement>('#copy-work');
+  const status = document.querySelector<HTMLElement>('#copy-status');
+  if (copyButton && status) {
+    copyButton.hidden = false;
+    copyButton.addEventListener('click', async () => {
+      copyButton.disabled = true;
+      try {
+        const response = await fetch('/work.md');
+        if (!response.ok) throw new Error('Download failed');
+        await navigator.clipboard.writeText(await response.text());
+        status.textContent = 'Page copied.';
+      } catch {
+        status.textContent = 'Could not copy. Download the markdown file instead.';
+      } finally { copyButton.disabled = false; }
+    });
+  }
+</script>
+<style>
+  .work-page { --work-width: calc(100% - var(--spacing-3) * 2); padding-block: var(--page-top) var(--spacing-10); }
+  .work-intro, .work-details { margin-left: var(--page-start); width: min(var(--work-width), calc(100% - var(--page-start) - var(--spacing-3))); min-width: 0; }
+  .work-intro { min-height: calc(100svh - var(--spacing-3)); display: flex; flex-direction: column; align-items: flex-start; justify-content: space-between; gap: var(--spacing-6); padding-bottom: var(--spacing-4); }
+  .work-intro__content { display: grid; grid-template-columns: minmax(0, 1fr); width: 100%; min-width: 0; gap: var(--page-heading-gap); }
+  h1 { margin: 0; font-optical-sizing: none; font-size: var(--size-page-headline); line-height: var(--line-height-display); letter-spacing: var(--letter-spacing-page-headline); overflow-wrap: anywhere; }
+  .work-summary { max-width: 37.5rem; margin: 0; line-height: var(--line-height-mono-regular); }
+  .work-details { max-width: 45rem; display: flex; flex-direction: column; gap: var(--spacing-5); padding-top: var(--spacing-6); }
+  #experience { scroll-margin-top: var(--spacing-3); }
+  h2 { margin: 0; font-size: var(--size-h2); line-height: calc(7 / 6); letter-spacing: -0.06em; }
+  .experience-description { margin: var(--spacing-2) 0 var(--spacing-4); line-height: var(--line-height-mono-regular); }
+  .experience-list, .project-list { list-style: none; padding: 0; margin: 0; }
+  .experience-list { display: grid; gap: var(--spacing-1); max-width: 39rem; }
+  /* Figma's decorative duration bars use its orange palette and exact segment proportions. */
+  .experience-item { display: grid; grid-template-columns: calc(var(--spacing-4) + var(--spacing-3)) minmax(0, 1fr); gap: var(--spacing-5); min-height: var(--segment-height); }
+  .experience-item::before { content: ''; background: var(--segment-color); }
+  .experience-content { align-self: center; padding-block: var(--spacing-1); font-family: var(--font-family-mono); font-size: var(--size-mono-regular); font-weight: var(--font-weight-medium); line-height: var(--line-height-mono-regular); letter-spacing: var(--letter-spacing-mono-regular); }
+  .experience-role { display: grid; gap: var(--spacing-1); }
+  .experience-role h3, .experience-role p, .project-title, .project-description { margin: 0; }
+  .experience-role h3, .project-title { font: inherit; letter-spacing: inherit; }
+  .muted, .experience-meta { color: var(--text-secondary); }
+  .experience-meta { font-size: var(--size-mono-s); line-height: 1.5; letter-spacing: var(--letter-spacing-mono-small); }
+  .project-list { display: grid; gap: var(--spacing-2); margin-top: var(--spacing-4); }
+  /* Case-study titles stay noninteractive until their pages are ready. */
+  .project-title { color: var(--text-primary); padding: var(--spacing-1); }
+  .project-description { padding-left: var(--spacing-3); }
+  .work-academic :global(.info-table) { max-width: none; border-radius: var(--spacing-1); }
+  .work-academic :global(.info-table__row) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cv-download, .work-actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--spacing-3); }
+  .availability { color: var(--text-secondary); font: var(--size-mono-s)/1.5 var(--font-family-mono); }
+  .work-footer { border-top: 1px solid var(--border-default); padding-top: var(--spacing-5); }
+  #copy-status { margin: 0; font-size: var(--size-mono-s); }
+  #copy-status:not(:empty) { margin-top: var(--spacing-3); }
+  .work-back { display: flex; align-items: center; gap: var(--spacing-3); margin-top: var(--spacing-3); }
+  .work-back::before { content: ''; flex: 1; border-top: 1px solid var(--border-default); }
+  @media (width < 768px) {
+    .work-intro :global(.work-jump) { margin-left: calc(var(--icon-mobile-menu-button) + var(--spacing-3)); }
+    .experience-item { grid-template-columns: var(--spacing-3) minmax(0, 1fr); gap: var(--spacing-3); }
+    .experience-content { padding-block: var(--spacing-3); }
+    .work-footer { padding-bottom: var(--spacing-8); }
+  }
+  @media (min-width: 768px) { .work-page { --work-width: calc(100% * 7 / 12); } }
+  @media (min-width: 1024px) {
+    .work-page { --work-width: min(var(--viewport-content-max), calc(75% - var(--spacing-5))); }
+    .work-intro :global(.work-jump) { margin-left: calc(-1 * var(--spacing-1)); }
+  }
+</style>

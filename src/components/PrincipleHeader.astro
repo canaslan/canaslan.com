@@ -1,0 +1,89 @@
+---
+interface Props { title: string; description?: string; breakBefore?: string; variant?: 'principle' | 'service'; name?: string }
+const { title, description, breakBefore, variant = 'principle', name } = Astro.props;
+const split = breakBefore ? title.indexOf(breakBefore) : -1;
+---
+{description ? (
+  <details class:list={['principle', { 'principle--service': variant === 'service' }]} name={name}>
+    <summary><h2 class="principle-title">{split >= 0 ? <>{title.slice(0, split).trim()}<br />{title.slice(split)}</> : title}<span class="principle-arrow" aria-hidden="true" /></h2></summary>
+    {variant === 'service' ? <div class="service-description"><slot /><p>{description}</p><slot name="action" /></div> : <p class="principle-description">{description}</p>}
+  </details>
+) : (
+  <h2 class="principle-title">{split >= 0 ? <>{title.slice(0, split).trim()}<br />{title.slice(split)}</> : title}</h2>
+)}
+<style>
+  .principle-title {
+    margin: 0;
+    color: var(--text-primary);
+    font-family: var(--font-family-sans);
+    font-size: var(--size-page-headline);
+    font-optical-sizing: none;
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-display);
+    letter-spacing: var(--letter-spacing-page-headline);
+    overflow-wrap: anywhere;
+  }
+  summary {
+    width: fit-content;
+    max-width: 100%;
+    list-style: none;
+    cursor: pointer;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary:focus-visible { outline: 2px solid var(--border-focus); outline-offset: var(--spacing-1); }
+  summary:hover .principle-title, summary:focus-visible .principle-title { color: var(--text-accent); }
+  .principle-arrow {
+    display: inline-block;
+    width: var(--icon-m);
+    height: var(--icon-m);
+    margin-left: var(--spacing-2);
+    background: currentColor;
+    mask: url('/icons/arrow-upward.svg') center / contain no-repeat;
+    transform: rotate(180deg);
+  }
+  details[open] .principle-arrow { transform: none; }
+  .principle-description {
+    box-sizing: border-box;
+    max-width: 32.8125rem; /* Figma expanded header: 525px including side padding. */
+    margin: var(--spacing-2) 0 0;
+    padding: 0 var(--spacing-3) var(--spacing-3);
+    color: var(--text-primary);
+    font-family: var(--font-family-sans);
+    font-size: var(--size-body-m);
+    font-weight: var(--font-weight-regular);
+    line-height: var(--line-height-mono-regular);
+    letter-spacing: 0;
+  }
+  .service-description { max-width: 37.5rem; padding-left: var(--spacing-3); padding-bottom: var(--spacing-3); margin-block: var(--spacing-3) 0; display: flex; flex-direction: column; align-items: flex-start; gap: var(--spacing-2); }
+  .service-description p { margin: 0; font-size: var(--size-body-m); line-height: var(--line-height-mono-regular); }
+  .principle--service .principle-title { font-size: clamp(2rem, 5vw, var(--size-principle)); letter-spacing: var(--letter-spacing-display); }
+  @media (min-width: 1024px) { .principle--service .principle-title { letter-spacing: var(--letter-spacing-principle); } }
+</style>
+
+<style>
+  /* A short ease-out gives immediate feedback and settles gently (Emil Kowalski). */
+  .principle {
+    --disclosure-duration: 240ms;
+    --disclosure-ease: cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  @supports (interpolate-size: allow-keywords) and (transition-behavior: allow-discrete) {
+    .principle { interpolate-size: allow-keywords; }
+    .principle::details-content {
+      display: flow-root;
+      block-size: 0;
+      overflow: clip;
+      opacity: 0;
+      transition:
+        block-size var(--disclosure-duration) var(--disclosure-ease),
+        opacity 180ms ease-out,
+        content-visibility var(--disclosure-duration) allow-discrete;
+    }
+    .principle[open]::details-content { block-size: auto; opacity: 1; }
+  }
+  .principle-arrow { transition: transform var(--disclosure-duration) var(--disclosure-ease); }
+  @media (prefers-reduced-motion: reduce) {
+    .principle::details-content, .principle-arrow { transition: none; }
+  }
+</style>

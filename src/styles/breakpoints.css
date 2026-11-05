@@ -1,0 +1,17 @@
+/* Generated from src/tokens/viewport/ and src/tokens/grid/. Do not edit. */
+/* CSS variables cannot be used in @media — use the literal values below. */
+
+/*
+ * Viewport breakpoints (px):
+ *   xxs 320 | xs 480 | s 768
+ *   m 1024 | l 1440 | xl 1768
+ *
+ * Large navigation: min-width: 2560px
+ *
+ * Column counts:
+ *   xxs 2 | xs 6 | s 6
+ *   m 12 | l 12 | xl 12
+ *
+ * Mobile overlay nav:  width < 768px  (below s)
+ * Desktop sidebar:   min-width: 768px      (s and above)
+ */

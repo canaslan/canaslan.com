@@ -1,0 +1,9 @@
+{
+  "radius": {
+    "medium": {
+      "$type": "number",
+      "$value": 6,
+      "$description": "Figma numerics/radius/medium; shared button corners."
+    }
+  }
+}

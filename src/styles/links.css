@@ -1,0 +1,46 @@
+/* Shared link states also apply to native prose and Markdown anchors.
+   Repeat .link in state selectors to outrank Astro-scoped component defaults. */
+:is(.link--inline, .inline-link) {
+  display: inline;
+  padding: var(--spacing-1);
+  border-radius: 2px; /* Figma inline link radius. */
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-regular);
+  letter-spacing: 0;
+  color: var(--link-default);
+  text-decoration-line: underline;
+  text-decoration-style: solid;
+  text-decoration-thickness: from-font;
+  text-underline-offset: from-font;
+  text-underline-position: from-font;
+  overflow-wrap: anywhere;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+:is(.link.link, .inline-link):hover {
+  color: var(--link-hovered);
+}
+
+:is(.link.link, .inline-link):active {
+  background: var(--link-pressed-background);
+  color: var(--link-pressed);
+}
+
+:is(.link.link, .inline-link):visited {
+  color: var(--link-visited);
+}
+
+:is(.link.link, .inline-link):visited:hover {
+  color: var(--link-hovered);
+}
+
+:is(.link.link, .inline-link):visited:active {
+  color: var(--link-pressed);
+}
+
+:is(.link.link, .inline-link):focus-visible {
+  outline: 2px solid var(--link-focus);
+  outline-offset: 0;
+}
+

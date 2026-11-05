@@ -1,0 +1,64 @@
+---
+import Link from './Link.astro';
+import '../styles/info-table.css';
+
+export type InfoTableRow = {
+  label: string;
+  value: string;
+  href?: string;
+  newTab?: boolean;
+  icon?: 'external' | false;
+};
+
+interface Props {
+  heading: string;
+  rows: InfoTableRow[];
+  label?: string;
+  variant?: 'fields' | 'links';
+  columns?: [string, string];
+}
+
+const { heading, rows, label, variant = 'fields', columns } = Astro.props;
+---
+
+<div class:list={['info-table', { 'info-table--links': variant === 'links', 'info-table--columns': Boolean(columns) }]} role="table" aria-label={label ?? heading}>
+  <div class="info-table__header" role="row">
+    {columns ? columns.map((column) => <div class="info-table__header-cell" role="columnheader">{column}</div>) : <div class="info-table__header-cell" role="columnheader" aria-colspan={variant === 'fields' ? 2 : undefined}>{heading}</div>}
+  </div>
+  <div class="info-table__body" role="rowgroup">
+    {
+      variant === 'links'
+        ? rows.map((row) => (
+            <div class="info-table__row" role="row">
+              <div class="info-table__value" role="cell">
+                <Link href={row.href} variant="external" size="large" newTab={row.newTab ?? true}>
+                  {row.value}
+                </Link>
+              </div>
+            </div>
+          ))
+        : rows.map((row) => (
+            <div class="info-table__row" role="row">
+              <div class="info-table__label" role="rowheader">
+                {row.label}
+              </div>
+              <div class="info-table__value" role="cell">
+                {row.href ? (
+                  <Link
+                    href={row.href}
+                    variant="external"
+                    size="large"
+                    icon={row.icon ?? false}
+                    newTab={row.newTab ?? true}
+                  >
+                    {row.value}
+                  </Link>
+                ) : (
+                  row.value
+                )}
+              </div>
+            </div>
+          ))
+    }
+  </div>
+</div>

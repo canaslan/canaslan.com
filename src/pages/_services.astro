@@ -1,0 +1,29 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import PrincipleHeader from '../components/PrincipleHeader.astro';
+import ServiceAction from '../components/ServiceAction.astro';
+import { services } from '../data/services';
+import '../styles/services.css';
+---
+<Layout title="Services — Can Aslan" description="Product UX Audit, Product Direction Sprint, and Second Opinion services by Can Aslan." viewportGrid>
+  <div class="services-page">
+    <Breadcrumb items={[{ label: 'Can Aslan', href: '/' }, { label: 'Work', href: '/projects' }, { label: 'Services', current: true }]} />
+    <h1 class="services-page__heading">Services</h1>
+    <ul class="services-list">
+      {services.map(service => <li>
+        <PrincipleHeader title={service.title} description={service.audience} variant="service">
+          <h3>{service.tagline}</h3>
+          <ServiceAction slot="action" href={`/services/${service.slug}`} icon="forward" label={`Learn more about ${service.title}`}>Learn more</ServiceAction>
+        </PrincipleHeader>
+      </li>)}
+    </ul>
+  </div>
+</Layout>
+<style>
+  .services-page__heading { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .services-list { list-style: none; padding: 0; margin: var(--spacing-3) 0 0; display: grid; gap: var(--spacing-2); }
+  .services-list li { min-width: 0; }
+  .services-list li + li { border-top: 1px solid var(--border-default); padding-top: var(--spacing-2); }
+  h3 { margin: 0; font-size: var(--size-mono-xl); line-height: var(--line-height-mono-regular); letter-spacing: var(--letter-spacing-link-inline); }
+</style>

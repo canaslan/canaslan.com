@@ -1,0 +1,413 @@
+{
+  "font-family": {
+    "sans": {
+      "$type": "string",
+      "$value": "Inter",
+      "$description": "Inter variable font used by the Figma designs.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:5994:2060",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "mono": {
+      "$type": "string",
+      "$value": "JetBrains Mono",
+      "$description": "Monospaced typeface for code, captions, metadata, technical labels.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:5994:2061",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    }
+  },
+  "font-weight": {
+    "regular": {
+      "$type": "string",
+      "$value": "Regular",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:5994:2062",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "medium": {
+      "$type": "string",
+      "$value": "Medium",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:5994:2063",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "semibold": {
+      "$type": "string",
+      "$value": "SemiBold",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:5994:2064",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "bold": {
+      "$type": "string",
+      "$value": "Bold",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:5994:2065",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    }
+  },
+  "size": {
+    "headline": {
+      "$type": "number",
+      "$value": 140,
+      "$description": "Hero / display size in px.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:5994:2066",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ]
+      }
+    },
+    "display": {
+      "$type": "number",
+      "$value": 128,
+      "$description": "viewport-1440 hero size in px."
+    },
+    "display-mobile": {
+      "$type": "number",
+      "$value": 54,
+      "$description": "home/mobile hero size in px."
+    },
+    "principle": {
+      "$type": "number",
+      "$value": 72,
+      "$description": "Principles hero list size."
+    },
+    "h1": {
+      "$type": "number",
+      "$value": 54,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:5994:2067",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ]
+      }
+    },
+    "h2": {
+      "$type": "number",
+      "$value": 24,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:5994:2068",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ]
+      }
+    },
+    "body-m": {
+      "$type": "number",
+      "$value": 16,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:5994:2069",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ]
+      }
+    },
+    "link-m": {
+      "$type": "number",
+      "$value": 14,
+      "$description": "Medium link size."
+    },
+    "mono-m": {
+      "$type": "number",
+      "$value": 14,
+      "$description": "Figma Mono/M font size."
+    },
+    "mono-regular": {
+      "$type": "number",
+      "$value": 16,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:5994:2070",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ]
+      }
+    },
+    "mono-s": {
+      "$type": "number",
+      "$value": 12,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:5994:2071",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ]
+      }
+    },
+    "display-small": {
+      "$type": "number",
+      "$value": 80,
+      "$description": "Figma Breakpoints home and navigation size in px."
+    },
+    "display-medium": {
+      "$type": "number",
+      "$value": 100,
+      "$description": "Figma Breakpoints home and navigation size in px."
+    },
+    "mono-xl": {
+      "$type": "number",
+      "$value": 20,
+      "$description": "Figma Breakpoints home and navigation size in px."
+    },
+    "readme-hero": {
+      "$type": "number",
+      "$value": 72,
+      "$description": "Figma Readme Hero statement 7574:11518 and 7576:11917: 72px at 1440 and 1768."
+    },
+    "readme-hero-small": {
+      "$type": "number",
+      "$value": 40,
+      "$description": "Readme hero at viewport/s and below in Figma."
+    },
+    "readme-hero-large": {
+      "$type": "number",
+      "$value": 96,
+      "$description": "Figma Readme Hero statement 7576:12359: 96px at 2560."
+    },
+    "principle-small": {
+      "$type": "number",
+      "$value": 48,
+      "$description": "Principles responsive headings in Figma 7657:8122."
+    },
+    "principle-medium": {
+      "$type": "number",
+      "$value": 64,
+      "$description": "Principles responsive headings in Figma 7657:8122."
+    },
+    "service-heading": {
+      "$type": "number",
+      "$value": 32,
+      "$description": "Service detail page heading from Figma: 32px, distinct from display headings."
+    },
+    "page-headline": {
+      "$type": "string",
+      "$value": "clamp(2rem, min(calc(1.285714rem + 3.571429vw), calc(2.571429rem + 2.142857vw)), 6rem)",
+      "$description": "Shared fluid page headline: 32px at 320px, 72px at 1440px, 96px at 2560px with a 16px root. Continuous interpolation, bounded in rem for text resizing."
+    }
+  },
+  "line-height": {
+    "tight": {
+      "$type": "number",
+      "$value": 100,
+      "$description": "100% \u2014 used for display and header sizes. Bind to line-height in Figma using the % unit.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:5994:2072",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ]
+      }
+    },
+    "display": {
+      "$type": "number",
+      "$value": 110,
+      "$description": "110% \u2014 viewport-1440 hero line height."
+    },
+    "normal": {
+      "$type": "number",
+      "$value": 135,
+      "$description": "135% \u2014 used for body and mono sizes.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:5994:2073",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ]
+      }
+    },
+    "mono-m": {
+      "$type": "string",
+      "$value": "1.3125rem",
+      "$description": "Figma Mono/M line height, 21px at default root size."
+    },
+    "mono-regular": {
+      "$type": "string",
+      "$value": "1.5rem",
+      "$description": "Figma navigation line height, 24px at default root size."
+    },
+    "body": {
+      "$type": "string",
+      "$value": "1.6",
+      "$description": "User-provided typography scale."
+    },
+    "heading": {
+      "$type": "string",
+      "$value": "1.15",
+      "$description": "User-provided typography scale."
+    }
+  },
+  "letter-spacing": {
+    "headline": {
+      "$type": "number",
+      "$value": -2.5,
+      "$description": "For 140px Headline. Tightest in the system.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:5994:2074",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ]
+      }
+    },
+    "display": {
+      "$type": "string",
+      "$value": "-0.05em",
+      "$description": "Proportional hero tracking: -5%, or -6.4px at 128px and -2px at 40px."
+    },
+    "link-inline": {
+      "$type": "string",
+      "$value": "-0.04em",
+      "$description": "Inline link tracking across all sizes."
+    },
+    "h1": {
+      "$type": "number",
+      "$value": -2,
+      "$description": "For 54px H1. Matches Inter's recommended starting point for sizes >32pt.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:5994:2075",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ]
+      }
+    },
+    "h2": {
+      "$type": "number",
+      "$value": -1.5,
+      "$description": "For 24px H2.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:5994:2076",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ]
+      }
+    },
+    "body": {
+      "$type": "string",
+      "$value": "-0.002em",
+      "$description": "User-provided body tracking."
+    },
+    "mono-regular": {
+      "$type": "number",
+      "$value": 0,
+      "$description": "JetBrains Mono at 16px. Mono is fixed-width \u2014 leave neutral.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:5994:2078",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ]
+      }
+    },
+    "mono-small": {
+      "$type": "number",
+      "$value": 0,
+      "$description": "JetBrains Mono at 12px. Increase to 1 only if rendering looks cramped.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:5994:2079",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ]
+      }
+    },
+    "heading": {
+      "$type": "string",
+      "$value": "-0.048em",
+      "$description": "User-provided heading tracking."
+    },
+    "principle-small": {
+      "$type": "string",
+      "$value": "-0.175rem",
+      "$description": "Principles responsive heading tracking in Figma 7657:8122."
+    },
+    "principle": {
+      "$type": "string",
+      "$value": "-0.25rem",
+      "$description": "Principles responsive heading tracking in Figma 7657:8122."
+    },
+    "page-headline": {
+      "$type": "string",
+      "$value": "-0.06em",
+      "$description": "Shared proportional page-headline tracking, following existing Readme display tracking."
+    }
+  },
+  "$extensions": {
+    "com.figma.modeName": "Value"
+  },
+  "text-size": {
+    "80": {
+      "$type": "string",
+      "$value": "0.694rem",
+      "$description": "User-provided 1.2 typography scale."
+    },
+    "90": {
+      "$type": "string",
+      "$value": "0.833rem",
+      "$description": "User-provided 1.2 typography scale."
+    },
+    "100": {
+      "$type": "string",
+      "$value": "1rem",
+      "$description": "User-provided 1.2 typography scale."
+    },
+    "200": {
+      "$type": "string",
+      "$value": "1.2rem",
+      "$description": "User-provided 1.2 typography scale."
+    },
+    "300": {
+      "$type": "string",
+      "$value": "1.44rem",
+      "$description": "User-provided 1.2 typography scale."
+    },
+    "400": {
+      "$type": "string",
+      "$value": "1.728rem",
+      "$description": "User-provided 1.2 typography scale."
+    },
+    "500": {
+      "$type": "string",
+      "$value": "2.074rem",
+      "$description": "User-provided 1.2 typography scale."
+    },
+    "600": {
+      "$type": "string",
+      "$value": "2.488rem",
+      "$description": "User-provided 1.2 typography scale."
+    },
+    "700": {
+      "$type": "string",
+      "$value": "2.986rem",
+      "$description": "User-provided 1.2 typography scale."
+    }
+  },
+  "type-space": {
+    "heading-before": {
+      "$type": "string",
+      "$value": "2.25rem"
+    },
+    "paragraph": {
+      "$type": "string",
+      "$value": "1rem"
+    }
+  }
+}

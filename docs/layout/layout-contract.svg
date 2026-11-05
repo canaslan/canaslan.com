@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1120" viewBox="0 0 1440 1120"><title>Website layout contract — Figma and code</title><desc>Desktop sidebar outside a 1:2:1 grid, optional twelve-column guide, page templates, and mobile single-column layout.</desc><rect width="1440" height="1120" fill="#f7f7f5"/>
+<text x="56" y="48" font-family="Inter, Arial, sans-serif" font-size="14" fill="#b63800">CAN ASLAN / LAYOUT CONTRACT / 17 OCT 2026</text>
+<text x="56" y="102" font-family="Inter, Arial, sans-serif" font-size="38" fill="#232321">Historical layout — superseded</text>
+<text x="56" y="140" font-family="Inter, Arial, sans-serif" font-size="18" fill="#61615b">Previous sidebar-offset implementation. Use README.md for the approved full-page grid.</text>
+<text x="56" y="198" font-family="Inter, Arial, sans-serif" font-size="16" fill="#b63800">DESKTOP / 1024 PX AND ABOVE</text>
+<rect x="56" y="220" width="1328" height="300" fill="#f7f7f5" stroke="#cececa"/>
+<rect x="56" y="220" width="200" height="300" fill="#e6e5e1" stroke="#cececa"/>
+<text x="76" y="256" font-family="Inter, Arial, sans-serif" font-size="22" fill="#232321">Sidebar</text>
+<text x="76" y="294" font-family="Inter, Arial, sans-serif" font-size="18" fill="#232321">Hug width</text>
+<text x="76" y="326" font-family="Inter, Arial, sans-serif" font-size="18" fill="#232321">16 px padding</text>
+<text x="76" y="358" font-family="Inter, Arial, sans-serif" font-size="18" fill="#232321">8 px item gap</text>
+<text x="76" y="402" font-family="Inter, Arial, sans-serif" font-size="18" fill="#232321">Sticky · 100vh</text>
+<text x="290" y="252" font-family="Inter, Arial, sans-serif" font-size="18" fill="#232321">ContentArea / Fill remaining width / horizontal padding P</text>
+<rect x="300" y="276" width="260" height="196" fill="#e6e5e1" stroke="#cececa"/>
+<rect x="560" y="276" width="520" height="196" fill="#ffd8c3" stroke="#cececa"/>
+<rect x="1080" y="276" width="260" height="196" fill="#e6e5e1" stroke="#cececa"/>
+<text x="320" y="315" font-family="Inter, Arial, sans-serif" font-size="23" fill="#232321">1fr / 25%</text>
+<text x="582" y="315" font-family="Inter, Arial, sans-serif" font-size="23" fill="#9b3000">2fr / 50%</text>
+<text x="1100" y="315" font-family="Inter, Arial, sans-serif" font-size="23" fill="#232321">1fr / 25%</text>
+<text x="582" y="364" font-family="Inter, Arial, sans-serif" font-size="26" fill="#232321">Home + About</text>
+<text x="582" y="403" font-family="Inter, Arial, sans-serif" font-size="18" fill="#232321">Center of content area, not viewport</text>
+<text x="300" y="503" font-family="Inter, Arial, sans-serif" font-size="18" fill="#232321">P = clamp(32 px, 4vw, 64 px)  ·  gap = 0  ·  sidebar excluded</text>
+<text x="56" y="573" font-family="Inter, Arial, sans-serif" font-size="16" fill="#b63800">FIGMA GUIDE / 12 EQUAL SUBDIVISIONS</text>
+<rect x="300.0" y="594" width="86.66666666666667" height="46" fill="#e6e5e1" stroke="#cececa"/>
+<text x="333.0" y="623" font-family="Inter, Arial, sans-serif" font-size="16" fill="#232321">1</text>
+<rect x="386.6666666666667" y="594" width="86.66666666666667" height="46" fill="#e6e5e1" stroke="#cececa"/>
+<text x="419.6666666666667" y="623" font-family="Inter, Arial, sans-serif" font-size="16" fill="#232321">2</text>
+<rect x="473.33333333333337" y="594" width="86.66666666666667" height="46" fill="#e6e5e1" stroke="#cececa"/>
+<text x="506.33333333333337" y="623" font-family="Inter, Arial, sans-serif" font-size="16" fill="#232321">3</text>
+<rect x="560.0" y="594" width="86.66666666666667" height="46" fill="#ffd8c3" stroke="#cececa"/>
+<text x="593.0" y="623" font-family="Inter, Arial, sans-serif" font-size="16" fill="#232321">4</text>
+<rect x="646.6666666666667" y="594" width="86.66666666666667" height="46" fill="#ffd8c3" stroke="#cececa"/>
+<text x="679.6666666666667" y="623" font-family="Inter, Arial, sans-serif" font-size="16" fill="#232321">5</text>
+<rect x="733.3333333333333" y="594" width="86.66666666666667" height="46" fill="#ffd8c3" stroke="#cececa"/>
+<text x="766.3333333333333" y="623" font-family="Inter, Arial, sans-serif" font-size="16" fill="#232321">6</text>
+<rect x="820.0" y="594" width="86.66666666666667" height="46" fill="#ffd8c3" stroke="#cececa"/>
+<text x="853.0" y="623" font-family="Inter, Arial, sans-serif" font-size="16" fill="#232321">7</text>
+<rect x="906.6666666666666" y="594" width="86.66666666666667" height="46" fill="#ffd8c3" stroke="#cececa"/>
+<text x="939.6666666666666" y="623" font-family="Inter, Arial, sans-serif" font-size="16" fill="#232321">8</text>
+<rect x="993.3333333333334" y="594" width="86.66666666666667" height="46" fill="#ffd8c3" stroke="#cececa"/>
+<text x="1026.3333333333335" y="623" font-family="Inter, Arial, sans-serif" font-size="16" fill="#232321">9</text>
+<rect x="1080.0" y="594" width="86.66666666666667" height="46" fill="#e6e5e1" stroke="#cececa"/>
+<text x="1113.0" y="623" font-family="Inter, Arial, sans-serif" font-size="16" fill="#232321">10</text>
+<rect x="1166.6666666666665" y="594" width="86.66666666666667" height="46" fill="#e6e5e1" stroke="#cececa"/>
+<text x="1199.6666666666665" y="623" font-family="Inter, Arial, sans-serif" font-size="16" fill="#232321">11</text>
+<rect x="1253.3333333333335" y="594" width="86.66666666666667" height="46" fill="#e6e5e1" stroke="#cececa"/>
+<text x="1286.3333333333335" y="623" font-family="Inter, Arial, sans-serif" font-size="16" fill="#232321">12</text>
+<text x="56" y="620" font-family="Inter, Arial, sans-serif" font-size="18" fill="#232321">On inner Tracks</text>
+<text x="300" y="671" font-family="Inter, Arial, sans-serif" font-size="18" fill="#232321">3 columns</text>
+<text x="646" y="671" font-family="Inter, Arial, sans-serif" font-size="18" fill="#232321">6 columns = middle track</text>
+<text x="1100" y="671" font-family="Inter, Arial, sans-serif" font-size="18" fill="#232321">3 columns</text>
+<text x="300" y="705" font-family="Inter, Arial, sans-serif" font-size="18" fill="#232321">Stretch · margin 0 · gutter 0. Auto Layout underneath: 1fr / 2fr / 1fr.</text>
+<text x="56" y="768" font-family="Inter, Arial, sans-serif" font-size="16" fill="#b63800">PAGE TEMPLATES</text>
+<text x="56" y="808" font-family="Inter, Arial, sans-serif" font-size="20" fill="#232321">About</text>
+<text x="244" y="808" font-family="Inter, Arial, sans-serif" font-size="18" fill="#232321">Middle track · max 960 px · top aligned</text>
+<text x="56" y="850" font-family="Inter, Arial, sans-serif" font-size="20" fill="#232321">Home</text>
+<text x="244" y="850" font-family="Inter, Arial, sans-serif" font-size="18" fill="#232321">Middle track · no width cap · vertically centered</text>
+<text x="56" y="892" font-family="Inter, Arial, sans-serif" font-size="20" fill="#232321">Wide + Flush</text>
+<text x="244" y="892" font-family="Inter, Arial, sans-serif" font-size="18" fill="#232321">All tracks · max 1024 px · 16 px vertical padding</text>
+<text x="56" y="932" font-family="Inter, Arial, sans-serif" font-size="16" fill="#61615b">Wide: Projects, Research, Principles, Contact, Readme</text>
+<text x="905" y="768" font-family="Inter, Arial, sans-serif" font-size="16" fill="#b63800">MOBILE / BELOW 1024 PX</text>
+<text x="905" y="808" font-family="Inter, Arial, sans-serif" font-size="18" fill="#232321">One column · 16 px outer padding</text>
+<text x="905" y="844" font-family="Inter, Arial, sans-serif" font-size="18" fill="#232321">No sidebar · navigation overlays</text>
+<text x="905" y="880" font-family="Inter, Arial, sans-serif" font-size="18" fill="#232321">Main fills width · no shell width cap</text>
+<text x="905" y="916" font-family="Inter, Arial, sans-serif" font-size="17" fill="#232321">Home currently totals ≥ 100vh + 32 px</text>
+<text x="56" y="994" font-family="Inter, Arial, sans-serif" font-size="14" fill="#b63800">REFERENCE PADDING</text>
+<text x="56" y="1028" font-family="Inter, Arial, sans-serif" font-size="20" fill="#232321">320 / 480 / 768 → 16 px     1024 → 40.96 px     1440 → 57.6 px     1768 → 64 px</text>
+<text x="56" y="1081" font-family="Inter, Arial, sans-serif" font-size="15" fill="#61615b">Source: src/styles/layout.css + Layout.astro + page props. See README.md for exact rules and verification gaps.</text>
+</svg>

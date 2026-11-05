@@ -1,0 +1,37 @@
+{
+  "columns": {
+    "xxs": {
+      "$type": "number",
+      "$value": 2,
+      "$description": "columns/xxs"
+    },
+    "xs": {
+      "$type": "number",
+      "$value": 6,
+      "$description": "columns/xs"
+    },
+    "s": {
+      "$type": "number",
+      "$value": 6,
+      "$description": "columns/s"
+    },
+    "m": {
+      "$type": "number",
+      "$value": 12,
+      "$description": "columns/m"
+    },
+    "l": {
+      "$type": "number",
+      "$value": 12,
+      "$description": "columns/l"
+    },
+    "xl": {
+      "$type": "number",
+      "$value": 12,
+      "$description": "columns/xl"
+    }
+  },
+  "$extensions": {
+    "com.figma.modeName": "Value"
+  }
+}

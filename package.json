@@ -1,0 +1,23 @@
+{
+  "name": "can-aslan",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "tokens": "node scripts/generate-tokens.mjs",
+    "predev": "npm run tokens",
+    "prebuild": "npm run tokens",
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "deploy": "npm run build && wrangler deploy",
+    "deploy:preview": "npm run build && wrangler preview",
+    "deploy:check": "npm run build && wrangler deploy --dry-run"
+  },
+  "dependencies": {
+    "astro": "^7.4.0",
+    "marked": "^18.0.6"
+  },
+  "devDependencies": {
+    "wrangler": "^4.157.0"
+  }
+}
