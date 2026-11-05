@@ -2,8 +2,8 @@
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "can-aslan",
   "compatibility_date": "2026-11-04",
-  "workers_dev": true,
-  "preview_urls": true,
+  "workers_dev": false,
+  "preview_urls": false,
   "assets": {
     "directory": "./dist",
     "html_handling": "auto-trailing-slash",
@@ -15,12 +15,6 @@
       "enabled": true
     }
   },
-  "previews": {},
   "account_id": "6472e6c2b1616c065c24ac87e4581486",
-  "routes": [
-    {
-      "pattern": "canaslan.com",
-      "custom_domain": true
-    }
-  ]
+  "routes": []
 }

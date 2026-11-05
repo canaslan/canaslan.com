@@ -1,5 +1,11 @@
 # Cloudflare deployment
 
+## Current status: offline
+
+Public access was disabled at the owner’s request on 5 November 2026. The `canaslan.com` Worker Custom Domain was detached; workers.dev and preview routing are disabled. Both existing previews were retained but have no routable URLs. `wrangler.jsonc` now sets `workers_dev` and `preview_urls` to `false`, has an empty `routes` list, and omits the `previews` block to prevent new preview deployments from this configuration. Do not restore public routing without explicit approval. Older branches or historical configurations must not be deployed because they can restore public access.
+
+The release records below describe the earlier public setup, not the current access state.
+
 ## Decision
 
 Use Cloudflare Workers Static Assets on the Workers Free plan for this statically rendered Astro site. No server adapter, database, or runtime secrets are needed. `wrangler.jsonc` is the source of deployment configuration. Cloudflare's `cf init .` generated a Wrangler setup; this project uses its local Wrangler dependency for deployment.
