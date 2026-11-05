@@ -13,9 +13,9 @@ Pricing verified 4 November 2026:
 
 ## Repository and automated builds
 
-Repository: private [canaslan/canaslan.com](https://github.com/canaslan/canaslan.com), with production source on `main`. The local checkout uses this repository as `origin`. GitHub-to-Cloudflare automatic builds are not connected yet.
+Repository: private [canaslan/canaslan.com](https://github.com/canaslan/canaslan.com), with production source on `main`. The local checkout uses this repository as `origin`. The owner completed the GitHub-to-Cloudflare connection on 5 November 2026; Git-triggered production and preview builds are being verified.
 
-To finish automatic deployment, open the [Cloudflare account](https://dash.cloudflare.com/6472e6c2b1616c065c24ac87e4581486/workers-and-pages), select `can-aslan`, then **Settings → Builds → Connect**. Authorize the Cloudflare GitHub app for `canaslan/canaslan.com` and apply these Workers Builds settings:
+To review or reconnect automatic deployment, open the [Cloudflare account](https://dash.cloudflare.com/6472e6c2b1616c065c24ac87e4581486/workers-and-pages), select `can-aslan`, then **Settings → Builds → Connect**. Authorize the Cloudflare GitHub app for `canaslan/canaslan.com` and apply these Workers Builds settings:
 
 - Worker name: `can-aslan` (must match `wrangler.jsonc`).
 - Production branch: `main`.
@@ -99,7 +99,7 @@ The local resolver still cached the previous empty DNS answer during verificatio
 
 Wrangler is authorized as `hello@canaslan.com` in account `6472e6c2b1616c065c24ac87e4581486`. GitHub is authorized as `canaslan` using the official GitHub CLI. Cloudflare MCP has identity/account access, but lacks Workers and DNS scopes. The Workers Builds API also denied the CLI authorization (HTTP 403), so Git-connected builds still need dashboard authorization/configuration.
 
-Remaining: connect Workers Builds to GitHub, trigger production and branch builds, verify normal production DNS resolution, and complete mobile/desktop browser QA in both themes. Browser access was unavailable during this session. No rollback drill has been run; this is the first production version.
+The owner has completed the dashboard connection step. Remaining: verify Git-triggered production and branch builds, verify normal production DNS resolution, and complete mobile/desktop browser QA in both themes. Browser access was unavailable during this session. No rollback drill has been run; this is the first production version.
 
 ## Rollback
 
