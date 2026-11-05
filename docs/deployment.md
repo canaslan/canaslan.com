@@ -13,7 +13,7 @@ Pricing verified 4 November 2026:
 
 ## Repository and automated builds
 
-Repository: private [canaslan/canaslan.com](https://github.com/canaslan/canaslan.com), with production source on `main`. The local checkout uses this repository as `origin`. The owner completed the GitHub-to-Cloudflare connection on 5 November 2026; Git-triggered production and preview builds are being verified.
+Repository: private [canaslan/canaslan.com](https://github.com/canaslan/canaslan.com), with production source on `main`. The local checkout uses this repository as `origin`. The owner completed the GitHub-to-Cloudflare connection on 5 November 2026; Git-triggered production and preview builds have both passed.
 
 To review or reconnect automatic deployment, open the [Cloudflare account](https://dash.cloudflare.com/6472e6c2b1616c065c24ac87e4581486/workers-and-pages), select `can-aslan`, then **Settings → Builds → Connect**. Authorize the Cloudflare GitHub app for `canaslan/canaslan.com` and apply these Workers Builds settings:
 
@@ -29,7 +29,7 @@ To review or reconnect automatic deployment, open the [Cloudflare account](https
 - Application environment variables and runtime secrets: none currently required.
 - Output directory: `dist/`, configured in `wrangler.jsonc`.
 
-Once connected, Cloudflare's build integration supplies deployment credentials. Never commit API tokens or OAuth credentials. GitHub app authorization and Cloudflare account access must be completed by the owner.
+Cloudflare's connected build integration supplies deployment credentials. Never commit API tokens or OAuth credentials. GitHub app authorization and Cloudflare account access must be completed by the owner.
 
 Sources:
 
@@ -67,15 +67,20 @@ Source: https://developers.cloudflare.com/workers/static-assets/headers/
 
 Astro's production site URL is `https://canaslan.com`. The hostname is attached as a Worker Custom Domain in `wrangler.jsonc`. Cloudflare manages its DNS record and certificate. The zone was verified active before final release checks. No application data services are bound.
 
-Live deployment created 5 November 2026:
+Git-triggered release verified 5 November 2026:
 
 - Production: https://canaslan.com
 - Production Cloudflare alias: https://can-aslan.can-aslan.workers.dev
-- Production version: `68c0731c-068c-4ce7-b4e7-3d3b8301e0e5`
-- Preview: https://can-121-can-aslan.can-aslan.workers.dev
-- Immutable preview: https://91eea5f0-can-aslan.can-aslan.workers.dev
-- Preview deployment: `91eea5f0-7273-4aa4-9fc7-cd7564d2a277`
-- Deployed site source: initial commit `c82ae3708c384cc71b56efe05a51f24fd971534c` (the subsequent configuration commit enables Previews and records the account and custom domain; page assets are the same).
+- Verified Git-built production version: `6f02ae7b-3e5a-4352-a406-31d543af4ff1`
+- Verified source commit: `84188bf39ea45dcf5a0952b118d138185211aea8`
+- [Production build 42cfc5c3-62eb-4cc6-b778-87572ee815c7](https://dash.cloudflare.com/6472e6c2b1616c065c24ac87e4581486/workers/services/view/can-aslan/production/builds/42cfc5c3-62eb-4cc6-b778-87572ee815c7): succeeded and promoted to production.
+- Verification branch: `can-121-verification`.
+- Git-triggered preview: https://can-121-verification-can-aslan.can-aslan.workers.dev
+- [Preview build d3890307-3ed5-4ea0-bfe9-ab519c9896b3](https://dash.cloudflare.com/6472e6c2b1616c065c24ac87e4581486/workers/services/view/can-aslan/production/previews/can-121-verification/builds/d3890307-3ed5-4ea0-bfe9-ab519c9896b3): succeeded.
+- Initial manual preview remains at https://can-121-can-aslan.can-aslan.workers.dev.
+- Previous verified production version, suitable as a rollback target: `68c0731c-068c-4ce7-b4e7-3d3b8301e0e5` (source `c82ae3708c384cc71b56efe05a51f24fd971534c`).
+
+Every subsequent production push creates a new version; inspect the current deployment before choosing a rollback target.
 
 ## Release verification
 
@@ -87,8 +92,6 @@ For both the production URL and preview URL:
 4. Inspect `X-Robots-Tag` on preview HTML and the PDF; expect `noindex`. Check the production custom domain does not receive that header.
 5. Check the deployed site on mobile and desktop, in light and dark themes, with keyboard focus and navigation.
 
-Local validation completed on 4 November 2026: Astro production build; Wrangler dry run (50 asset files); local Cloudflare HTTP checks for all seven pages, Markdown, CSS, favicon, a 404, and a byte-identical CV PDF. Local HTTPS checks verified `noindex` on two representative workers.dev hosts and no indexing header on `canaslan.com`. Remote deployments, real preview hostnames, Git integration, domain attachment, and deployed browser QA remain unverified.
-
 ## Verification — 5 November 2026
 
 The current production build passes with eight pages (including Colophon), `/work.md`, and 51 static asset files. Wrangler deployment dry run passes. A limited scan of source files found no private-key blocks or common GitHub/OpenAI token patterns. Git marks the CV PDF as binary; local credential files and generated output are excluded from version control.
@@ -97,9 +100,11 @@ Live production and the named Preview each passed 40 HTTP checks covering every 
 
 The local resolver still cached the previous empty DNS answer during verification. Production was checked with curl `--resolve` using `104.21.34.133`, returned by the authoritative Cloudflare nameserver, with normal TLS certificate verification enabled. Normal resolver propagation must be rechecked. The named Preview resolved normally and passed HTTPS checks. Public recursive resolvers `1.1.1.1` and `8.8.8.8` also return the correct production addresses, and the production Cloudflare alias now passes HTTPS.
 
-Wrangler is authorized as `hello@canaslan.com` in account `6472e6c2b1616c065c24ac87e4581486`. GitHub is authorized as `canaslan` using the official GitHub CLI. Cloudflare MCP has identity/account access, but lacks Workers and DNS scopes. The Workers Builds API also denied the CLI authorization (HTTP 403), so Git-connected builds still need dashboard authorization/configuration.
+Wrangler is authorized as `hello@canaslan.com` in account `6472e6c2b1616c065c24ac87e4581486`. GitHub is authorized as `canaslan` using the official GitHub CLI. Cloudflare MCP has identity/account access, but lacks Workers and DNS scopes. The Workers Builds API also denied the CLI authorization (HTTP 403), but dashboard-authorized Git-connected builds work; their GitHub check runs provide the verification evidence.
 
-The owner has completed the dashboard connection step. Remaining: verify Git-triggered production and branch builds, verify normal production DNS resolution, and complete mobile/desktop browser QA in both themes. Browser access was unavailable during this session. No rollback drill has been run; this is the first production version.
+The dashboard connection is complete. A documentation commit pushed to `main` triggered the successful production build; pushing the same verified source to `can-121-verification` triggered the successful isolated Preview build. Both Git-built hosts passed the 40 HTTP checks above. These results establish the hosting and deployment workflow; they do not establish visual or assistive-technology conformance.
+
+Remaining verification gaps: this machine's normal production DNS cache was still stale, and browser access was unavailable, so mobile/desktop/theme/keyboard browser QA was not rerun. Public DNS and certificate-verified production HTTP checks passed. Rollback commands and a known-good previous version are recorded; no live rollback drill was run.
 
 ## Rollback
 
