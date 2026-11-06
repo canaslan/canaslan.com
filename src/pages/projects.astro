@@ -24,7 +24,7 @@ import { workIntro, workSummary, experience, academicRows } from '../data/work';
           {experience.map(item => <li class="experience-item" style={`--segment-color: var(--orange-${item.color}); --segment-height: ${item.height / 16}rem;`}>
             <div class="experience-content">
               <div class="experience-role">
-                <h3>{item.organization} {item.context && <span class="muted">({item.context})</span>}</h3>
+                <h3>{item.organization}</h3>
                 <p>{item.role}</p>
                 <p class="experience-meta">{item.dates}</p>
                 <p class="experience-meta">{item.location}</p>
@@ -90,7 +90,7 @@ import { workIntro, workSummary, experience, academicRows } from '../data/work';
   .experience-role { display: grid; gap: var(--spacing-1); }
   .experience-role h3, .experience-role p, .project-title, .project-description { margin: 0; }
   .experience-role h3, .project-title { font: inherit; letter-spacing: inherit; }
-  .muted, .experience-meta { color: var(--text-secondary); }
+  .experience-meta { color: var(--text-secondary); }
   .experience-meta { font-size: var(--size-mono-s); line-height: 1.5; letter-spacing: var(--letter-spacing-mono-small); }
   .project-list { display: grid; gap: var(--spacing-2); margin-top: var(--spacing-4); }
   /* Case-study titles stay noninteractive until their pages are ready. */
