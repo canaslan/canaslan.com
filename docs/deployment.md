@@ -1,23 +1,21 @@
 # Cloudflare deployment
 
-## Current status: offline
+## Current status: live
 
-Public access was disabled at the owner’s request on 5 November 2026. The `canaslan.com` Worker Custom Domain was detached; workers.dev and preview routing are disabled. Both existing previews were retained but have no routable URLs. `wrangler.jsonc` now sets `workers_dev` and `preview_urls` to `false`, has an empty `routes` list, and omits the `previews` block to prevent new preview deployments from this configuration. Do not restore public routing without explicit approval. Older branches or historical configurations must not be deployed because they can restore public access.
-
-The release records below describe the earlier public setup, not the current access state.
+Version 1.0 launched on 6 November 2026 at `https://canaslan.com`. The Worker Custom Domain, workers.dev alias, and preview routing are enabled in `wrangler.jsonc`. Cloudflare's Always Use HTTPS setting is enabled for the zone, and `www.canaslan.com` permanently redirects to the canonical apex URL.
 
 ## Pre-launch domain and DNS
 
 Verified 5 November 2026:
 
 - Namecheap remains the registrar. Cloudflare is authoritative DNS through `nile.ns.cloudflare.com` and `piper.ns.cloudflare.com`.
-- The canonical production URL is `https://canaslan.com`. The apex is intentionally offline: it has no public A/AAAA record and the Worker Custom Domain is detached.
+- The canonical production URL is `https://canaslan.com`.
 - `www.canaslan.com` has a proxied A record to Cloudflare's redirect-only placeholder `192.0.2.1`, with automatic TTL.
 - The enabled zone Single Redirect rule `Redirect www to apex` returns 301 for both HTTP and HTTPS requests to `www.canaslan.com`. It targets `https://canaslan.com`, preserving the original path and query string.
 - The redirect was certificate-verified for `www.canaslan.com` over HTTPS. Root, nested-path, and query-string checks passed without a redirect loop.
 - iCloud Mail remains configured with priority-10 MX records for `mx01.mail.icloud.com` and `mx02.mail.icloud.com`, SPF `v=spf1 include:icloud.com ~all`, Apple domain verification, and the DNS-only `sig1._domainkey` CNAME. Existing Google site-verification TXT records are also preserved.
 
-At launch, reattach `canaslan.com` as the Worker Custom Domain, then verify apex DNS, HTTP-to-HTTPS behavior, certificate validity, path handling, and the complete `www` redirect journey. Do not perform those launch-only routing changes while the site is intentionally offline.
+The 6 November launch restored the Worker Custom Domain and verified apex DNS, HTTP-to-HTTPS behavior, certificate validity, path handling, and the complete `www` redirect journey.
 
 ## Decision
 
@@ -84,7 +82,7 @@ Source: https://developers.cloudflare.com/workers/static-assets/headers/
 
 ## Production domain
 
-Astro's production site URL is `https://canaslan.com`. In the earlier public configuration, the hostname was attached as a Worker Custom Domain and Cloudflare managed its DNS record and certificate. The zone remains active, but the current offline configuration has no Worker route or apex web record. No application data services are bound.
+Astro's production site URL is `https://canaslan.com`. The hostname is attached as a Worker Custom Domain, and Cloudflare manages its DNS record and certificate. No application data services are bound.
 
 Git-triggered release verified 5 November 2026:
 
@@ -124,6 +122,19 @@ Wrangler is authorized as `hello@canaslan.com` in account `6472e6c2b1616c065c24a
 The dashboard connection is complete. A documentation commit pushed to `main` triggered the successful production build; pushing the same verified source to `can-121-verification` triggered the successful isolated Preview build. Both Git-built hosts passed the 40 HTTP checks above. These results establish the hosting and deployment workflow; they do not establish visual or assistive-technology conformance.
 
 Remaining verification gaps: this machine's normal production DNS cache was still stale, and browser access was unavailable, so mobile/desktop/theme/keyboard browser QA was not rerun. Public DNS and certificate-verified production HTTP checks passed. Rollback commands and a known-good previous version are recorded; no live rollback drill was run.
+
+## Launch verification — 6 November 2026
+
+- Release source: `46d981067b8d70d367c0932857430d452967554a` on `main`; the remote branch SHA was verified after push.
+- Cloudflare production version: `2eb02a17-cfba-402d-a674-fa163bdfd78b`.
+- `npm run deploy:check`, the production build, asset upload, and deployment passed with nine generated HTML pages and 58 packaged assets.
+- The apex returned HTTPS 200. HTTP apex and HTTP/HTTPS `www` requests returned 301 to the canonical HTTPS apex while preserving a nested path and query string.
+- `robots.txt`, `sitemap.xml`, the social card, and the CV PDF returned HTTPS 200. An unknown route returned the custom HTTP 404 response.
+- Production HTML contained the canonical URL, absolute social-image URL, Umami script URL, and expected Umami website ID exactly as configured.
+- The owner completed the release-candidate browser pass covering the agreed manual browser-testing scope before launch.
+- The Services routes remain deliberately deferred and are not generated from the underscored source files.
+
+Analytics dashboard receipt and search-engine sitemap submission are post-launch checks. No live rollback drill was run.
 
 ## Rollback
 
