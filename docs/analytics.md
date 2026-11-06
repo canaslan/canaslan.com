@@ -36,7 +36,7 @@ After the apex site and Umami website are active:
 2. Trigger each event from its visible control and confirm the expected event name and allowed properties.
 3. Confirm a `workers.dev` preview and localhost do not create production page views or events.
 4. Check the browser network panel for tracker errors and record any ad-blocker limitation as expected client behavior.
-5. Add the final visitor-facing privacy wording before marking analytics complete.
+5. Confirm the visitor-facing privacy wording remains accurate when the analytics configuration changes. The current disclosure is in `src/pages/colophon.astro`.
 
 References:
 
