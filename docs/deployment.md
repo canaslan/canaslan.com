@@ -6,6 +6,19 @@ Public access was disabled at the owner’s request on 5 November 2026. The `can
 
 The release records below describe the earlier public setup, not the current access state.
 
+## Pre-launch domain and DNS
+
+Verified 5 November 2026:
+
+- Namecheap remains the registrar. Cloudflare is authoritative DNS through `nile.ns.cloudflare.com` and `piper.ns.cloudflare.com`.
+- The canonical production URL is `https://canaslan.com`. The apex is intentionally offline: it has no public A/AAAA record and the Worker Custom Domain is detached.
+- `www.canaslan.com` has a proxied A record to Cloudflare's redirect-only placeholder `192.0.2.1`, with automatic TTL.
+- The enabled zone Single Redirect rule `Redirect www to apex` returns 301 for both HTTP and HTTPS requests to `www.canaslan.com`. It targets `https://canaslan.com`, preserving the original path and query string.
+- The redirect was certificate-verified for `www.canaslan.com` over HTTPS. Root, nested-path, and query-string checks passed without a redirect loop.
+- iCloud Mail remains configured with priority-10 MX records for `mx01.mail.icloud.com` and `mx02.mail.icloud.com`, SPF `v=spf1 include:icloud.com ~all`, Apple domain verification, and the DNS-only `sig1._domainkey` CNAME. Existing Google site-verification TXT records are also preserved.
+
+At launch, reattach `canaslan.com` as the Worker Custom Domain, then verify apex DNS, HTTP-to-HTTPS behavior, certificate validity, path handling, and the complete `www` redirect journey. Do not perform those launch-only routing changes while the site is intentionally offline.
+
 ## Decision
 
 Use Cloudflare Workers Static Assets on the Workers Free plan for this statically rendered Astro site. No server adapter, database, or runtime secrets are needed. `wrangler.jsonc` is the source of deployment configuration. Cloudflare's `cf init .` generated a Wrangler setup; this project uses its local Wrangler dependency for deployment.
@@ -71,7 +84,7 @@ Source: https://developers.cloudflare.com/workers/static-assets/headers/
 
 ## Production domain
 
-Astro's production site URL is `https://canaslan.com`. The hostname is attached as a Worker Custom Domain in `wrangler.jsonc`. Cloudflare manages its DNS record and certificate. The zone was verified active before final release checks. No application data services are bound.
+Astro's production site URL is `https://canaslan.com`. In the earlier public configuration, the hostname was attached as a Worker Custom Domain and Cloudflare managed its DNS record and certificate. The zone remains active, but the current offline configuration has no Worker route or apex web record. No application data services are bound.
 
 Git-triggered release verified 5 November 2026:
 
@@ -106,7 +119,7 @@ Live production and the named Preview each passed 40 HTTP checks covering every 
 
 The local resolver still cached the previous empty DNS answer during verification. Production was checked with curl `--resolve` using `104.21.34.133`, returned by the authoritative Cloudflare nameserver, with normal TLS certificate verification enabled. Normal resolver propagation must be rechecked. The named Preview resolved normally and passed HTTPS checks. Public recursive resolvers `1.1.1.1` and `8.8.8.8` also return the correct production addresses, and the production Cloudflare alias now passes HTTPS.
 
-Wrangler is authorized as `hello@canaslan.com` in account `6472e6c2b1616c065c24ac87e4581486`. GitHub is authorized as `canaslan` using the official GitHub CLI. Cloudflare MCP has identity/account access, but lacks Workers and DNS scopes. The Workers Builds API also denied the CLI authorization (HTTP 403), but dashboard-authorized Git-connected builds work; their GitHub check runs provide the verification evidence.
+Wrangler is authorized as `hello@canaslan.com` in account `6472e6c2b1616c065c24ac87e4581486`. GitHub is authorized as `canaslan` using the official GitHub CLI. The Cloudflare integration has zone, DNS, and Rulesets access. The Workers Builds API still denies the CLI authorization (HTTP 403), but dashboard-authorized Git-connected builds work; their GitHub check runs provide the verification evidence.
 
 The dashboard connection is complete. A documentation commit pushed to `main` triggered the successful production build; pushing the same verified source to `can-121-verification` triggered the successful isolated Preview build. Both Git-built hosts passed the 40 HTTP checks above. These results establish the hosting and deployment workflow; they do not establish visual or assistive-technology conformance.
 

@@ -8,6 +8,8 @@ export type InfoTableRow = {
   href?: string;
   newTab?: boolean;
   icon?: 'external' | false;
+  analyticsEvent?: string;
+  analyticsLocation?: string;
 };
 
 interface Props {
@@ -31,7 +33,14 @@ const { heading, rows, label, variant = 'fields', columns } = Astro.props;
         ? rows.map((row) => (
             <div class="info-table__row" role="row">
               <div class="info-table__value" role="cell">
-                <Link href={row.href} variant="external" size="large" newTab={row.newTab ?? true}>
+                <Link
+                  href={row.href}
+                  variant="external"
+                  size="large"
+                  newTab={row.newTab ?? true}
+                  data-umami-event={row.analyticsEvent}
+                  data-umami-event-location={row.analyticsLocation}
+                >
                   {row.value}
                 </Link>
               </div>

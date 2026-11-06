@@ -1,4 +1,4 @@
-// Can Aslan — implemented sitemap, updated 2026-11-04.
+// Can Aslan — launch sitemap, updated 2026-11-05.
 // Services overview and detail routes are deferred and excluded from this release.
 // Import by dragging this file onto OmniGraffle's Dock icon.
 // Solid lines: navigation hierarchy (not URL nesting).
@@ -9,17 +9,17 @@ digraph CanAslanSitemap {
   node [shape=box, fontname="Helvetica", fontsize=12, style="rounded", color="#555555", fontcolor="#222222", width=2.3];
   edge [color="#777777", arrowhead=none];
 
-  home [label="Can Aslan / Home\n/", URL="https://canaslan.dev/"];
-  work [label="Work\n/projects", URL="https://canaslan.dev/projects"];
-  principles [label="Principles\n/principles", URL="https://canaslan.dev/principles"];
-  readme [label="Readme\n/readme", URL="https://canaslan.dev/readme"];
+  home [label="Can Aslan / Home\n/", URL="https://canaslan.com/"];
+  work [label="Work\n/projects", URL="https://canaslan.com/projects/"];
+  principles [label="Principles\n/principles", URL="https://canaslan.com/principles/"];
+  readme [label="Readme\n/readme", URL="https://canaslan.com/readme/"];
   blog [label="Blog [external]\ncanaslan.substack.com", style="rounded,dashed", URL="https://canaslan.substack.com/"];
-  contact [label="Contact\n/contact", URL="https://canaslan.dev/contact"];
-  colophon [label="Colophon [navigation footer]\n/colophon", URL="https://canaslan.dev/colophon"];
+  contact [label="Contact\n/contact", URL="https://canaslan.com/contact/"];
+  colophon [label="Colophon [navigation footer]\n/colophon", URL="https://canaslan.com/colophon/"];
 
   unlisted [label="Routes outside main navigation\nInventory grouping", shape=box, style=dashed];
-  about [label="About\n/about\nStarter placeholder content", URL="https://canaslan.dev/about"];
-  research [label="Research\n/research", URL="https://canaslan.dev/research"];
+  about [label="About [noindex]\n/about\nStarter placeholder content", URL="https://canaslan.com/about/"];
+  research [label="Research\n/research", URL="https://canaslan.com/research/"];
 
   home -> work;
   home -> readme;

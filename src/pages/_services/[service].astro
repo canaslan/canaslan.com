@@ -28,7 +28,14 @@ const title = service.slug === 'second-opinion' ? 'Second opinion' : service.tit
       <h2 id={`session-${session.minutes}`}>{session.title}</h2>
       <InfoTable heading={session.title} label={session.title} columns={['Title', 'Description']} rows={session.rows} />
       <div class="service-booking">
-        <ServiceAction href={`mailto:hello@canaslan.com?subject=${encodeURIComponent(`${service.title} — ${session.minutes} min booking request`)}`} icon="calendar" label={`Request a ${session.minutes} minute ${service.title} call by email`}>Book {session.minutes} min</ServiceAction>
+        <ServiceAction
+          href={`mailto:hello@canaslan.com?subject=${encodeURIComponent(`${service.title} — ${session.minutes} min booking request`)}`}
+          icon="calendar"
+          label={`Request a ${session.minutes} minute ${service.title} call by email`}
+          data-umami-event="service-enquiry"
+          data-umami-event-service={service.slug}
+          data-umami-event-duration={String(session.minutes)}
+        >Book {session.minutes} min</ServiceAction>
       </div>
     </section>)}
     <footer class="service-back"><Link href="#top" icon="up">Back to top</Link></footer>

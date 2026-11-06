@@ -1,8 +1,13 @@
 ---
 import Button from './Button.astro';
-interface Props { href: string; icon: 'calendar' | 'forward'; label?: string }
-const { href, icon, label } = Astro.props;
+interface Props {
+  href: string;
+  icon: 'calendar' | 'forward';
+  label?: string;
+  [key: string]: unknown;
+}
+const { href, icon, label, ...attributes } = Astro.props;
 ---
-<Button href={href} icon={icon === 'calendar' ? 'calendar-add' : 'arrow-forward'} trailingIcon={icon === 'forward'} aria-label={label}>
+<Button href={href} icon={icon === 'calendar' ? 'calendar-add' : 'arrow-forward'} trailingIcon={icon === 'forward'} aria-label={label} {...attributes}>
   <slot />
 </Button>

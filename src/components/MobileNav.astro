@@ -21,7 +21,7 @@ const { pathname } = Astro.props;
 </button>
 
 <div class="mobile-overlay" id="mobile-nav-overlay" hidden data-menu-drawer>
-  <div class="mobile-overlay__scrim" data-menu-close tabindex="-1" aria-hidden="true"></div>
+  <div class="mobile-overlay__scrim" data-menu-close aria-hidden="true"></div>
   <div class="mobile-overlay__nav">
     <Sidebar pathname={pathname} id="mobile-site-nav" />
   </div>

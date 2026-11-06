@@ -17,7 +17,7 @@ import { workIntro, workSummary, experience, academicRows } from '../data/work';
       <Link href="#experience" icon="down" class="work-jump">View work</Link>
     </header>
     <div class="work-details">
-      <section id="experience" aria-labelledby="experience-heading" tabindex="-1">
+      <section id="experience" aria-labelledby="experience-heading">
         <h2 id="experience-heading">12 years in design and product development</h2>
         <p class="experience-description">In four countries, combining theory and practice, across all parts of product development.</p>
         <ol class="experience-list">
@@ -39,7 +39,7 @@ import { workIntro, workSummary, experience, academicRows } from '../data/work';
       </section>
       <div class="work-academic"><InfoTable heading="/ACADEMIC GROUNDING" rows={academicRows} /></div>
       <div class="cv-download">
-        <Button icon="arrow-forward" href="/can-aslan-cv.pdf" target="_blank" rel="noopener noreferrer" aria-label="View CV (PDF, opens in a new tab)">View CV</Button>
+        <Button icon="arrow-forward" href="/can-aslan-cv.pdf" target="_blank" rel="noopener noreferrer" aria-label="View CV (PDF, opens in a new tab)" data-umami-event="cv-open" data-umami-event-location="work">View CV</Button>
       </div>
       <footer class="work-footer">
         <div class="work-actions">

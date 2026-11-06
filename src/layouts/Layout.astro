@@ -9,6 +9,7 @@ import MobileNav from '../components/MobileNav.astro';
 interface Props {
   title: string;
   description?: string;
+  noindex?: boolean;
   centered?: boolean;
   wide?: boolean;
   flush?: boolean;
@@ -18,12 +19,38 @@ interface Props {
 const {
   title,
   description = 'Personal website of Can Aslan.',
+  noindex = false,
   centered = false,
   wide = false,
   flush = false,
   viewportGrid = false,
 } = Astro.props;
 const pathname = Astro.url.pathname;
+const siteOrigin = Astro.site ?? new URL('https://canaslan.com');
+const canonicalUrl = new URL(pathname, siteOrigin);
+const socialImageUrl = new URL('/social-card.png', siteOrigin);
+const umamiWebsiteId = import.meta.env.PUBLIC_UMAMI_WEBSITE_ID ?? '089d048c-a81c-4e0b-8573-80696a869e39';
+const umamiScriptUrl = import.meta.env.PUBLIC_UMAMI_SCRIPT_URL ?? 'https://cloud.umami.is/script.js';
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': `${siteOrigin}#website`,
+      url: siteOrigin.toString(),
+      name: 'Can Aslan',
+      description: 'The work, principles, research, and independent practice of Can Aslan.',
+      inLanguage: 'en',
+    },
+    {
+      '@type': 'Person',
+      '@id': `${siteOrigin}#person`,
+      name: 'Can Aslan',
+      url: siteOrigin.toString(),
+      sameAs: ['https://www.linkedin.com/in/canaslan'],
+    },
+  ],
+};
 ---
 
 <!doctype html>
@@ -32,8 +59,27 @@ const pathname = Astro.url.pathname;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    <meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow'} />
     <meta name="generator" content={Astro.generator} />
+    <link rel="canonical" href={canonicalUrl} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Can Aslan" />
+    <meta property="og:locale" content="en_GB" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={socialImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Product Design and Design Strategy — Can Aslan" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImageUrl} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -41,6 +87,18 @@ const pathname = Astro.url.pathname;
       rel="stylesheet"
     />
     <title>{title}</title>
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+    {umamiWebsiteId && umamiScriptUrl ? (
+      <script
+        defer
+        src={umamiScriptUrl}
+        data-website-id={umamiWebsiteId}
+        data-domains="canaslan.com"
+        data-exclude-search="true"
+        data-exclude-hash="true"
+        data-do-not-track="true"
+      />
+    ) : null}
     <script is:inline>
       (function () {
   var stored;
@@ -68,7 +126,7 @@ const pathname = Astro.url.pathname;
       </aside>
 
       <div class:list={['content-area', { 'content-area--flush': flush }]}>
-        <main id="main-content" tabindex="-1" class:list={['content-main', { 'content-main--centered': centered, 'content-main--wide': wide }]}>
+        <main id="main-content" class:list={['content-main', { 'content-main--centered': centered, 'content-main--wide': wide }]}>
           <slot />
         </main>
       </div>
@@ -76,6 +134,25 @@ const pathname = Astro.url.pathname;
 
     <MobileNav pathname={pathname} />
 
+    <script>
+      document.querySelectorAll<HTMLAnchorElement>('a[href^="#"]').forEach((link) => {
+        link.addEventListener('click', () => {
+          const id = decodeURIComponent(link.hash.slice(1));
+          const target = id ? document.getElementById(id) : null;
+          if (!target) return;
+
+          const addedTabIndex = target.tabIndex < 0 && !target.hasAttribute('tabindex');
+          if (addedTabIndex) target.tabIndex = -1;
+
+          requestAnimationFrame(() => {
+            target.focus();
+            if (addedTabIndex) {
+              target.addEventListener('blur', () => target.removeAttribute('tabindex'), { once: true });
+            }
+          });
+        });
+      });
+    </script>
     <script src="../scripts/nav.ts"></script>
   </body>
 </html>
