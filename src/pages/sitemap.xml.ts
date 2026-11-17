@@ -5,7 +5,7 @@ const indexableRoutes = [
   '/colophon/',
   '/contact/',
   '/principles/',
-  '/projects/',
+  '/work/',
   '/readme/',
   '/research/',
 ];

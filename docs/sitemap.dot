@@ -10,7 +10,7 @@ digraph CanAslanSitemap {
   edge [color="#777777", arrowhead=none];
 
   home [label="Can Aslan / Home\n/", URL="https://canaslan.com/"];
-  work [label="Work\n/projects", URL="https://canaslan.com/projects/"];
+  work [label="Work\n/work", URL="https://canaslan.com/work/"];
   principles [label="Principles\n/principles", URL="https://canaslan.com/principles/"];
   readme [label="Readme\n/readme", URL="https://canaslan.com/readme/"];
   blog [label="Blog [external]\ncanaslan.substack.com", style="rounded,dashed", URL="https://canaslan.substack.com/"];

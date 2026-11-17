@@ -27,7 +27,7 @@ export const siteVersion = 'v1.0';
 
 export const siteNav: SiteNavItem[] = [
   { kind: 'link', label: 'Can Aslan', href: '/', icon: 'door' },
-  { kind: 'link', label: 'Work', href: '/projects' },
+  { kind: 'link', label: 'Work', href: '/work' },
   { kind: 'link', label: 'Principles', href: '/principles', indent: true },
   { kind: 'link', label: 'Readme', href: '/readme' },
   { kind: 'link', label: 'Blog', href: 'https://canaslan.substack.com/', external: true },

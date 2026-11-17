@@ -14,7 +14,7 @@ const title = service.slug === 'second-opinion' ? 'Second opinion' : service.tit
 ---
 <Layout title={`${title} — Can Aslan`} description={service.tagline} viewportGrid>
   <article class="services-page service-detail" id="top">
-    <Breadcrumb items={[{ label: 'Can Aslan', href: '/' }, { label: 'Work', href: '/projects' }, { label: 'Services', href: '/services' }, { label: title, current: true }]} />
+    <Breadcrumb items={[{ label: 'Can Aslan', href: '/' }, { label: 'Work', href: '/work' }, { label: 'Services', href: '/services' }, { label: title, current: true }]} />
     <h1>{title}</h1>
     <section class="service-copy" aria-labelledby="audience-heading">
       <h2 id="audience-heading">Who it is for</h2>
