@@ -21,18 +21,17 @@ import { workIntro, experience, academicRows } from '../data/work';
         <h2 id="experience-heading">12 years in design and product development</h2>
         <p class="experience-description">In four countries, combining theory and practice, across all parts of product development.</p>
         <ol class="experience-list">
-          {experience.map(item => <li class="experience-item" style={`--segment-color: var(--orange-${item.color}); --segment-height: ${item.height / 16}rem;`}>
+          {experience.map(item => <li class:list={['experience-item', { 'experience-item--active': item.active, 'experience-item--connected': item.connectedToPrevious }]} style={`--entry-padding: ${item.padding / 16}rem; --detail-gap: ${(item.detailGap ?? 24) / 16}rem;`}>
             <div class="experience-content">
               <div class="experience-role">
-                <h3>{item.organization}</h3>
-                <p>{item.role}</p>
-                <p class="experience-meta">{item.dates}</p>
-                <p class="experience-meta">{item.location}</p>
+                <h3>{item.role}</h3>
+                <div class="experience-meta">
+                  {!item.connectedToPrevious && <p>{item.organization}</p>}
+                  <p>{item.dates}</p>
+                  <p>{item.location}</p>
+                </div>
               </div>
-              {item.projects && <ul class="project-list">{item.projects.map(project => <li>
-                <h4 class="project-title">{project.title}</h4>
-                <p class="experience-meta project-description">{project.description}</p>
-              </li>)}</ul>}
+              {item.details && <div class="experience-details">{item.details.map(detail => <p>{detail}</p>)}</div>}
             </div>
           </li>)}
         </ol>
@@ -81,21 +80,17 @@ import { workIntro, experience, academicRows } from '../data/work';
   #experience { scroll-margin-top: var(--spacing-3); }
   h2 { margin: 0; font-size: var(--size-h2); line-height: calc(7 / 6); letter-spacing: -0.06em; }
   .experience-description { margin: var(--spacing-2) 0 var(--spacing-4); line-height: var(--line-height-mono-regular); }
-  .experience-list, .project-list { list-style: none; padding: 0; margin: 0; }
-  .experience-list { display: grid; gap: var(--spacing-1); max-width: 39rem; }
-  /* Figma's decorative duration bars use its orange palette and exact segment proportions. */
-  .experience-item { display: grid; grid-template-columns: calc(var(--spacing-4) + var(--spacing-3)) minmax(0, 1fr); gap: var(--spacing-5); min-height: var(--segment-height); }
-  .experience-item::before { content: ''; background: var(--segment-color); }
-  .experience-content { align-self: center; padding-block: var(--spacing-1); font-family: var(--font-family-mono); font-size: var(--size-mono-regular); font-weight: var(--font-weight-medium); line-height: var(--line-height-mono-regular); letter-spacing: var(--letter-spacing-mono-regular); }
+  .experience-list { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--spacing-3); width: min(100%, 32rem); }
+  .experience-item { display: grid; grid-template-columns: var(--spacing-2) minmax(0, 1fr); gap: var(--spacing-5); }
+  .experience-item--connected { margin-top: calc(-1 * var(--spacing-3)); }
+  .experience-item::before { content: ''; background: var(--border-strong); }
+  .experience-item--active::before { background: var(--nav-pill-selected); }
+  .experience-content { align-self: stretch; display: grid; align-content: center; gap: var(--spacing-4); min-width: 0; padding-block: var(--entry-padding); }
   .experience-role { display: grid; gap: var(--spacing-1); }
-  .experience-role h3, .experience-role p, .project-title, .project-description { margin: 0; }
-  .experience-role h3, .project-title { font: inherit; letter-spacing: inherit; }
-  .experience-meta { color: var(--text-secondary); }
-  .experience-meta { font-size: var(--size-mono-s); line-height: 1.5; letter-spacing: var(--letter-spacing-mono-small); }
-  .project-list { display: grid; gap: var(--spacing-2); margin-top: var(--spacing-4); }
-  /* Case-study titles stay noninteractive until their pages are ready. */
-  .project-title { color: var(--text-primary); padding: var(--spacing-1); }
-  .project-description { padding-left: var(--spacing-3); }
+  .experience-role h3, .experience-role p, .experience-details p { margin: 0; }
+  .experience-role h3 { font-family: var(--font-family-sans); font-size: var(--size-mono-xl); font-weight: var(--font-weight-bold); line-height: var(--line-height-mono-regular); letter-spacing: -0.04em; }
+  .experience-meta { color: var(--text-tertiary); font-family: var(--font-family-mono); font-size: var(--size-mono-m); font-weight: var(--font-weight-regular); line-height: var(--line-height-mono-m); letter-spacing: var(--letter-spacing-mono-small); }
+  .experience-details { display: grid; gap: var(--detail-gap); max-width: 27.4375rem; font-family: var(--font-family-sans); font-size: var(--size-body-m); font-weight: var(--font-weight-regular); line-height: var(--line-height-mono-regular); letter-spacing: var(--letter-spacing-body); }
   .work-academic :global(.info-table) { max-width: none; border-radius: var(--spacing-1); }
   .work-academic :global(.info-table__row) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .cv-download, .work-actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--spacing-3); }
@@ -107,8 +102,7 @@ import { workIntro, experience, academicRows } from '../data/work';
   .work-back::before { content: ''; flex: 1; border-top: 1px solid var(--border-default); }
   @media (width < 768px) {
     .work-intro :global(.work-jump) { margin-left: calc(var(--icon-mobile-menu-button) + var(--spacing-3)); }
-    .experience-item { grid-template-columns: var(--spacing-3) minmax(0, 1fr); gap: var(--spacing-3); }
-    .experience-content { padding-block: var(--spacing-3); }
+    .experience-item { gap: var(--spacing-3); }
     .work-footer { padding-bottom: var(--spacing-8); }
   }
   @media (min-width: 768px) { .work-page { --work-width: calc(100% * 7 / 12); } }

@@ -22,9 +22,9 @@
   margin: 0;
   color: var(--text-primary);
   font-family: var(--font-family-mono);
-  font-size: var(--size-mono-m);
+  font-size: var(--size-mono-regular);
   font-weight: var(--font-weight-medium);
-  line-height: var(--line-height-mono-m);
+  line-height: var(--line-height-mono-regular);
   letter-spacing: var(--letter-spacing-mono-regular);
 }
 
@@ -49,9 +49,9 @@
   background: var(--surface-default);
   color: var(--text-primary);
   font-family: var(--font-family-mono);
-  font-size: var(--size-mono-m);
+  font-size: var(--size-mono-regular);
   font-weight: var(--font-weight-regular);
-  line-height: var(--line-height-mono-m);
+  line-height: var(--line-height-mono-regular);
   letter-spacing: var(--letter-spacing-mono-regular);
 }
 
@@ -85,12 +85,12 @@
 .info-table--columns .info-table__header-cell { padding: var(--spacing-2); }
 .info-table--columns .info-table__header-cell,
 .info-table--columns .info-table__label,
-.info-table--columns .info-table__value { line-height: var(--line-height-mono-m); overflow-wrap: anywhere; align-items: center; }
+.info-table--columns .info-table__value { line-height: var(--line-height-mono-regular); overflow-wrap: anywhere; align-items: center; }
 
 .info-table .info-table__value .link {
-  font-size: var(--size-mono-m);
+  font-size: var(--size-mono-regular);
   font-weight: var(--font-weight-regular);
-  line-height: var(--line-height-mono-m);
+  line-height: var(--line-height-mono-regular);
 }
 
 .info-table .link__label {
