@@ -11,7 +11,7 @@ digraph CanAslanSitemap {
 
   home [label="Can Aslan / Home\n/", URL="https://canaslan.com/"];
   work [label="Work\n/work", URL="https://canaslan.com/work/"];
-  principles [label="Principles\n/principles", URL="https://canaslan.com/principles/"];
+  principles [label="Principles\n/work/principles", URL="https://canaslan.com/work/principles/"];
   readme [label="Readme\n/readme", URL="https://canaslan.com/readme/"];
   blog [label="Blog [external]\ncanaslan.substack.com", style="rounded,dashed", URL="https://canaslan.substack.com/"];
   contact [label="Contact\n/contact", URL="https://canaslan.com/contact/"];

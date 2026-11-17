@@ -103,7 +103,7 @@ Every subsequent production push creates a new version; inspect the current depl
 
 For both the production URL and preview URL:
 
-1. Open `/`, `/about/`, `/colophon/`, `/contact/`, `/principles/`, `/work/`, `/readme/`, and `/research/` directly, including a fresh load on each route.
+1. Open `/`, `/about/`, `/colophon/`, `/contact/`, `/work/principles/`, `/work/`, `/readme/`, and `/research/` directly, including a fresh load on each route.
 2. Check `/work.md`, CSS, icons, images, and `/can-aslan-cv.pdf`. Confirm the PDF opens and the View CV link still targets the established path.
 3. Confirm an unknown route returns HTTP 404, rather than the home page.
 4. Inspect `X-Robots-Tag` on preview HTML and the PDF; expect `noindex`. Check the production custom domain does not receive that header.

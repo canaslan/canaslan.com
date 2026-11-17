@@ -4,7 +4,7 @@ const indexableRoutes = [
   '/',
   '/colophon/',
   '/contact/',
-  '/principles/',
+  '/work/principles/',
   '/work/',
   '/readme/',
   '/research/',
