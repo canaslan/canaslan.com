@@ -9,4 +9,6 @@ interface Props {
 const { pathname, id = 'site-nav' } = Astro.props;
 ---
 
-<SiteNav pathname={pathname} id={id} />
+<div data-nosnippet>
+  <SiteNav pathname={pathname} id={id} />
+</div>
