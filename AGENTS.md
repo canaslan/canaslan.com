@@ -4,7 +4,20 @@ These instructions apply throughout this repository.
 
 ## Workflow
 
-- Inspect the relevant existing code before changing it. Keep changes focused and preserve unrelated user work.
+1. Use the release milestone in Linear’s canaslan.com project as the source of scope. Before implementing an assigned issue, check its acceptance criteria. If any are missing or unclear, ask the user and record the agreed criteria on the issue.
+2. Inspect the relevant existing code before editing. Keep changes focused and preserve unrelated user work.
+3. When the milestone implementation is ready, run `npm run build` and then `npm run preview -- --port 4322`. Review the built site at [the local review URL](http://localhost:4322). Confirm the server reports that address before sharing it and keep it available for the user’s review.
+4. Test each issue against its acceptance criteria and the Verification section below. Record results, verification gaps, and relevant local page links on the issue. Fix known failures and retest before moving the issue to **In Review** for user testing.
+5. If the user flags a defect, record it on the issue, fix it, rebuild the local preview, and repeat the affected checks. Return it to **In Review** with the results. Only the user sets an issue to **Approved**.
+6. Once the user has approved every issue in the milestone, assemble a local release commit containing only the scoped changes. Include the new version in `siteVersion` in `src/data/navigation.ts`. Build and review that commit locally, including the navigation pill. Draft the GitHub release notes and give the user the draft, candidate commit SHA, and local URL for final review.
+7. Wait for the user to approve both the candidate commit and release draft. If the candidate changes, repeat the affected checks and obtain approval for the revised commit. Before pushing, record the current production version and commit as described in [the deployment guide](docs/deployment.md).
+8. Push the approved commit to `main`, which triggers the Cloudflare production build. Verify the remote commit SHA and successful deployment of that SHA. Run the deployment guide’s production checks and confirm that the live navigation pill shows the candidate version.
+9. Publish the approved GitHub release against the verified production commit and confirm the release tag resolves to that SHA. Record the release link and production verification results in Linear. Leave issues **Approved** as the final issue status. If deployment or verification fails, record the failure and keep the release draft open until resolved.
+
+## Changelog and version naming
+
+- GitHub Releases is the site’s version log. Summarise the milestone’s user-visible changes and fixes in the release notes.
+- Increment from the latest published site release. Use a patch increment for fixes only (v1.1 to v1.1.1), a minor increment for a new feature or section (v1.1.1 to v1.2), and a major increment for a major redesign (v1.2 to v2.0). For mixed releases, use the highest applicable increment.
 
 ## Preserve the design system
 
